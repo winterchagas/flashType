@@ -1,11 +1,38 @@
-.container {
-  color: blue;
+body, html {
+  margin: 0;
+  padding: 0;
 }
 
-.container2 {
-  color: red;
-}
+.phrase-box {
+  height: 100vh;
+  font-size: 40px;
+  font-weight: bold;
 
-.container3 {
-  color: black;
+  &__full {
+    border: 1px solid black;
+    margin-bottom: 30px;
+  }
+
+  &__break {
+    border: 1px solid blue;
+    margin-bottom: 30px;
+  }
+
+  &__first-part {
+    color: blue;
+  }
+
+  &__error-part {
+    color: darkred;
+  }
+
+  &__last-part {
+    color: black;
+  }
+
+  &__type-box {
+    border: 1px solid black;
+    font-size: 55px;
+    min-height: 50px;
+  }
 }
