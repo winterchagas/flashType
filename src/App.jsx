@@ -3,7 +3,7 @@ import {shouldCaptureCharacter} from "./helpers";
 
 import './index.scss';
 
-const fullSentence = 'abcd';
+const fullSentence = 'The numbers in the table specifies the first browser version that fully supports the selector.';
 const sentenceLength = fullSentence.length;
 const phraseFirstPart = [];
 const phraseErrorPart = [];
@@ -81,27 +81,30 @@ const App = () => {
       tabIndex={0}
       onKeyDown={handleTyping}
     >
-      <div className="phrase-box__full">
-        <span>{fullSentence}</span>
-      </div>
       <div className="phrase-box__break">
         <span className="phrase-box__first-part">{phraseFirstPart.join('')}</span>
         <span className="phrase-box__error-part">{phraseErrorPart.join('')}</span>
         <span className="phrase-box__last-part">{phraseSecondPart.join('')}</span>
       </div>
       <div className="phrase-box__type-box">
-        {
-          [...typedPhrase]
-            .map((character, index) => {
-              return <span key={index}>{character}</span>
-            })
-        }
-				{
-					[...phraseSecondPart]
-						.map((character, index) => {
-							return <span key={index}>{character}</span>
-						})
-				}
+        <div className="phrase-box__type-box-left">
+          {
+            typedPhrase
+              .slice(-6)
+              .map((character, index) => {
+                return <span key={index}>{character === ' ' ? ' ' : character}</span>
+              })
+          }
+        </div>
+        <div className="phrase-box__type-box-right">
+          {
+            phraseSecondPart
+              .slice(0, 7)
+              .map((character, index) => {
+                return <span key={index}>{character === ' ' ? ' ' : character}</span>
+              })
+          }
+        </div>
       </div>
     </div>
   );

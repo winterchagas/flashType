@@ -31,8 +31,28 @@ body, html {
   }
 
   &__type-box {
+    display: flex;
     border: 1px solid black;
-    font-size: 55px;
+    font-size: 35px;
     min-height: 50px;
+  }
+
+  &__type-box-left {
+    border: 1px solid blue;
+    > span {
+      color: blue;
+
+      &:last-child {
+        font-size: 60px;
+      }
+    }
+  }
+
+  &__type-box-right {
+    border: 1px solid red;
+
+    > span {
+      color: red;
+    }
   }
 }
