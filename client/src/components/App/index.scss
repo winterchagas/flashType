@@ -1,0 +1,15 @@
+body, html {
+  margin: 0;
+  padding: 0;
+}
+
+.phrase-box {
+  height: 100vh;
+  font-size: 40px;
+  font-weight: bold;
+
+  &__full {
+    border: 1px solid black;
+    margin-bottom: 30px;
+  }
+}

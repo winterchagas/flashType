@@ -1,0 +1,24 @@
+.react-sweet-progress {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+      align-items: center;
+  -ms-flex-pack: center;
+      justify-content: center;
+  width: 100%; }
+
+@keyframes active-anim {
+  0% {
+    width: 0;
+    opacity: .1; }
+  20% {
+    width: 0;
+    opacity: .5; }
+  to {
+    width: 100%;
+    opacity: 0; } }
+
+body,html{margin:0;padding:0}.phrase-box{height:100vh;font-size:40px;font-weight:bold}.phrase-box__break{border:1px solid blue;margin-bottom:30px}.phrase-box__progress-bar{border:1px solid blue;margin-bottom:30px;padding:20px}.phrase-box__first-part{color:blue}.phrase-box__error-part{color:darkred}.phrase-box__last-part{color:black}.phrase-box__type-box{display:flex;border:1px solid black;font-size:35px;min-height:50px}.phrase-box__type-box-left{border:1px solid blue}.phrase-box__type-box-left>span{color:blue}.phrase-box__type-box-left>span:last-child{font-size:60px}.phrase-box__type-box-right{border:1px solid red}.phrase-box__type-box-right>span{color:blue}
+
+
+/*# sourceMappingURL=main.css.map*/

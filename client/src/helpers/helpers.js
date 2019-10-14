@@ -13,3 +13,9 @@ const allowedCharacters = {
 export function shouldCaptureCharacter(character) {
   return allowedCharacters[character];
 }
+
+export const userInfo = {
+  id: '',
+  name: '',
+  email: ''
+};

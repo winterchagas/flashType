@@ -1,0 +1,18 @@
+.phrase-box {
+  &__break {
+    border: 1px solid blue;
+    margin-bottom: 30px;
+  }
+
+  &__first-part {
+    color: blue;
+  }
+
+  &__error-part {
+    color: darkred;
+  }
+
+  &__last-part {
+    color: black;
+  }
+}
