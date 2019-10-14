@@ -1,8 +1,15 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {userInfo} from "../../helpers/helpers";
+import {initializeSockets} from "../../helpers/sockets";
 
 const ModalLogin = ({socket, setIsReadyToPlay}) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isWaitingForPlayers, setIsWaitingForPlayers] = useState(false);
+
+  useEffect(() => {
+    console.log('useEffect modal login');
+    initializeSockets(socket, setIsReadyToPlay);
+  }, []);
 
   function handleNameSubmit(event) {
     event.preventDefault();
@@ -19,8 +26,9 @@ const ModalLogin = ({socket, setIsReadyToPlay}) => {
   }
 
   function handleLookForGame() {
-    socket.emit('joinRoom', userInfo.id, (response) => {
-      if (response.ok) {
+    socket.emit('joinRoom', userInfo.id, (roomId) => {
+      if (roomId) {
+        setIsWaitingForPlayers(true);
         console.log('JOINED ROOM WAITING FOR PLAYERS');
       }
     });
@@ -30,11 +38,17 @@ const ModalLogin = ({socket, setIsReadyToPlay}) => {
     <div>
       {
         isLoggedIn ?
-          <div>
-            <button onClick={setIsLookingForGame}>
-              READY TO PLAY!
-            </button>
-          </div> :
+          isWaitingForPlayers ?
+            <div>
+              WAITING FOR OTHER PLAYERS..
+            </div>
+            :
+            <div>
+              <button onClick={handleLookForGame}>
+                READY TO PLAY!
+              </button>
+            </div>
+          :
           <div>
             <form onSubmit={handleNameSubmit}>
               <input type="text"/>

@@ -1,10 +1,12 @@
-export function initializeSockets(socket, ) {
-  socket.on('connect', function () {
-    console.info('FRONT END CONNECTED');
-  });
+export function initializeSockets(socket, setIsReadyToPlay) {
+  console.log('initializeSockets');
+
+  // socket.on('connect', function () {
+  //   console.info('FRONT END CONNECTED');
+  // });
 
   socket.on('gameStarted', function () {
-    setGameStarted(true);
+    setIsReadyToPlay(true);
     console.info('GAME STARTED');
   });
 

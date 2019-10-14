@@ -1,10 +1,9 @@
 import React, {useState, Fragment, useEffect} from 'react';
 import {shouldCaptureCharacter, userInfo} from "../../helpers/helpers";
-import {initializeSockets} from "../../helpers/sockets";
-import ModalLogin from "../ModalLogin/ModalLogin";
-import PhraseBox from "../PhraseBox/PhraseBox";
-import TypeBox from "../TypeBox/TypeBox";
-import ProgressBars from "../ProgressBars/ProgressBars";
+import ModalLogin from "../ModalLogin/ModalLogin.jsx";
+import PhraseBox from "../PhraseBox/PhraseBox.jsx";
+import TypeBox from "../TypeBox/TypeBox.jsx";
+import ProgressBars from "../ProgressBars/ProgressBars.jsx";
 
 import './index.scss';
 
@@ -75,11 +74,6 @@ function setPlayer1Info(userInfo) {
 }
 
 const Game = ({socket}) => {
-  useEffect(() => {
-    initializeSockets(socket, playersInfo, setPlayersCurrentProgress);
-    console.log('SOCKETS INITIALIZED');
-  }, []);
-
   const [currentIndex, setCurrentIndex] = useState(0);
   const [playersCurrentProgress, setPlayersCurrentProgress] = useState({});
   const [isLookingForGame, setIsLookingForGame] = useState(false);

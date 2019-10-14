@@ -9,18 +9,21 @@ class Rooms {
       players: [],
       full: false
     };
+    const addedRoomId = this.roomId;
     this.roomId++;
-    console.log('ROOM ADDED', this.roomId, this.rooms);
-    return this.roomId;
+    console.log('ROOM ADDED', addedRoomId, this.rooms);
+    return addedRoomId;
   }
 
   joinRoom(roomId, playerId) {
+    let startGame = false;
     this.rooms[roomId].players.push(playerId);
-    if (this.rooms[roomId].players.length > 4) {
+    if (this.rooms[roomId].players.length > 1) {
       this.rooms[roomId].full = true;
+      startGame = true;
     }
     console.log('PLAYER', playerId, 'JOINED', roomId);
-    return this.rooms[roomId];
+    return startGame;
   }
 
   searchRooms() {
@@ -28,10 +31,10 @@ class Rooms {
     for (const roomId of Object.keys(this.rooms)) {
       if (!this.rooms[roomId].full) {
         availableRoomId = roomId;
+        console.log('ROOM FOUND', availableRoomId);
         break;
       }
     }
-    console.log('ROOM FOUND', availableRoomId);
     return availableRoomId;
   }
 
@@ -40,4 +43,4 @@ class Rooms {
   }
 }
 
-module.exports = {Users};
+module.exports = {Rooms};
