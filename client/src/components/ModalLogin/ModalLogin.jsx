@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {userInfo} from "../../helpers/helpers";
+import {setMyUserInfo, myUserInfo} from "../../helpers/helpers";
 import {initializeSockets} from "../../helpers/sockets";
 
 const ModalLogin = ({socket, setIsReadyToPlay}) => {
@@ -7,7 +7,6 @@ const ModalLogin = ({socket, setIsReadyToPlay}) => {
   const [isWaitingForPlayers, setIsWaitingForPlayers] = useState(false);
 
   useEffect(() => {
-    console.log('useEffect modal login');
     initializeSockets(socket, setIsReadyToPlay);
   }, []);
 
@@ -17,8 +16,7 @@ const ModalLogin = ({socket, setIsReadyToPlay}) => {
     socket.emit('login', userName, (validUser, userData) => {
       if (validUser) {
         setIsLoggedIn(true);
-        userInfo.name = userData.name;
-        userInfo.id = userData.id;
+        setMyUserInfo(userData);
       } else {
         console.log('USER INVALID')
       }
@@ -26,16 +24,17 @@ const ModalLogin = ({socket, setIsReadyToPlay}) => {
   }
 
   function handleLookForGame() {
-    socket.emit('joinRoom', userInfo.id, (roomId) => {
+    socket.emit('joinRoom', myUserInfo.id, (roomId) => {
       if (roomId) {
+        setMyUserInfo({roomId});
+        console.log('myUserInfo', myUserInfo);
         setIsWaitingForPlayers(true);
-        console.log('JOINED ROOM WAITING FOR PLAYERS');
       }
     });
   }
 
   return (
-    <div>
+    <>
       {
         isLoggedIn ?
           isWaitingForPlayers ?
@@ -58,7 +57,7 @@ const ModalLogin = ({socket, setIsReadyToPlay}) => {
             </form>
           </div>
       }
-    </div>)
+    </>)
 };
 
 export default ModalLogin;

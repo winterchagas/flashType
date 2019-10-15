@@ -14,8 +14,28 @@ export function shouldCaptureCharacter(character) {
   return allowedCharacters[character];
 }
 
-export const userInfo = {
-  id: '',
-  name: '',
-  email: ''
-};
+export let myUserInfo = {};
+export let playersInfo;
+
+export function setMyUserInfo(userData) {
+  Object.keys(userData).forEach((key) => {
+    myUserInfo[key] = userData[key];
+  })
+}
+
+export function setPlayersInfo(playersData) {
+  playersInfo = playersData;
+}
+
+export function generateStartTimer(setGameStarted) {
+  let time = 3;
+  const interval = setInterval(() => {
+    console.log('GAME STARTING IN', time);
+    time--;
+  }, 1000);
+  setTimeout(() => {
+    console.log('GAME STARTED');
+    clearInterval(interval);
+    setGameStarted(true);
+  }, 3999);
+}

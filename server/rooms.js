@@ -17,13 +17,14 @@ class Rooms {
 
   joinRoom(roomId, playerId) {
     let startGame = false;
-    this.rooms[roomId].players.push(playerId);
-    if (this.rooms[roomId].players.length > 1) {
-      this.rooms[roomId].full = true;
+    const room = this.rooms[roomId];
+    room.players.push(playerId);
+    if (room.players.length > 1) {
+      room.full = true;
       startGame = true;
     }
     console.log('PLAYER', playerId, 'JOINED', roomId);
-    return startGame;
+    return {startGame, playersIds: room.players};
   }
 
   searchRooms() {

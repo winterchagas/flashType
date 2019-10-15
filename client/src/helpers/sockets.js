@@ -1,13 +1,14 @@
-export function initializeSockets(socket, setIsReadyToPlay) {
-  console.log('initializeSockets');
+import {setPlayersInfo} from "./helpers";
 
+export function initializeSockets(socket, setIsReadyToPlay) {
   // socket.on('connect', function () {
   //   console.info('FRONT END CONNECTED');
   // });
 
-  socket.on('gameStarted', function () {
+  socket.on('gameStarted', function (playersData) {
+    console.log('playersDdata', playersData);
+    setPlayersInfo(playersData);
     setIsReadyToPlay(true);
-    console.info('GAME STARTED');
   });
 
   socket.on('remoteCorrectType', function (userId, progress) {
@@ -18,3 +19,5 @@ export function initializeSockets(socket, setIsReadyToPlay) {
     console.info('remoteCorrectType', userId, progress);
   });
 }
+
+// TODO INITIALIZE REMOTE CORRECT TYPE ON GAME COMPONENT

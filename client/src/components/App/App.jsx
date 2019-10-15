@@ -10,7 +10,6 @@ let view;
 
 const App = () => {
   const [isReadyToPlay, setIsReadyToPlay] = useState(false);
-  console.log('isReadyToPlay', isReadyToPlay);
   if (isReadyToPlay) {
     view = <Game socket={socket}/>
   } else {
