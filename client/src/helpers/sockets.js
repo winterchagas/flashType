@@ -1,23 +1,18 @@
 import {setPlayersInfo} from "./helpers";
 
-export function initializeSockets(socket, setIsReadyToPlay) {
-  // socket.on('connect', function () {
-  //   console.info('FRONT END CONNECTED');
-  // });
-
+export function startSocketGameStarted(socket, setIsReadyToPlay) {
   socket.on('gameStarted', function (playersData) {
-    console.log('playersDdata', playersData);
     setPlayersInfo(playersData);
     setIsReadyToPlay(true);
   });
+}
 
-  socket.on('remoteCorrectType', function (userId, progress) {
-    // // playersCurrentProgress,
-    //   setPlayersCurrentProgress({
-    //
-    //   });
+export function startSocketRemoteType(socket, playersCurrentProgress, setPlayersCurrentProgress) {
+  socket.on('remoteType', function (userId, progress) {
+    setPlayersCurrentProgress({
+      ...playersCurrentProgress,
+      [userId]: progress
+    });
     console.info('remoteCorrectType', userId, progress);
   });
 }
-
-// TODO INITIALIZE REMOTE CORRECT TYPE ON GAME COMPONENT

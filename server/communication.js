@@ -19,8 +19,7 @@ function initializeCommunication(io) {
     });
 
     socket.on('correctType', (userId, roomId, progress) => {
-      console.log('correctType');
-      socket.to(roomId).emit('remoteCorrectType', userId, progress);
+      socket.to(roomId).emit('remoteType', userId, progress);
     });
 
     socket.on('joinRoom', (userId, respondJoinedRoom) => {
@@ -33,7 +32,10 @@ function initializeCommunication(io) {
         } = rooms.joinRoom(availableRoomId, userId);
         if (startGame) {
           const playersInfo = buildRoomPlayersInfo(users, playersIds);
-          io.to(availableRoomId).emit('gameStarted', playersInfo);
+          setTimeout(() => {
+            io.to(availableRoomId).emit('gameStarted', playersInfo);
+          }, 0);
+          respondJoinedRoom(availableRoomId);
         }
       } else {
         const newRoomId = rooms.addRoom();

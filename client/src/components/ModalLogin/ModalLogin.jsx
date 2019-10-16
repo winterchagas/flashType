@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import {setMyUserInfo, myUserInfo} from "../../helpers/helpers";
-import {initializeSockets} from "../../helpers/sockets";
+import {startSocketGameStarted} from "../../helpers/sockets";
 
 const ModalLogin = ({socket, setIsReadyToPlay}) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isWaitingForPlayers, setIsWaitingForPlayers] = useState(false);
 
   useEffect(() => {
-    initializeSockets(socket, setIsReadyToPlay);
+    startSocketGameStarted(socket, setIsReadyToPlay);
   }, []);
 
   function handleNameSubmit(event) {
@@ -27,7 +27,6 @@ const ModalLogin = ({socket, setIsReadyToPlay}) => {
     socket.emit('joinRoom', myUserInfo.id, (roomId) => {
       if (roomId) {
         setMyUserInfo({roomId});
-        console.log('myUserInfo', myUserInfo);
         setIsWaitingForPlayers(true);
       }
     });

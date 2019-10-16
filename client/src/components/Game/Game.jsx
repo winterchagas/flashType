@@ -16,6 +16,9 @@ import {
   phraseErrorPart,
   phraseSecondPart
 } from "../../helpers/typeEngine";
+import {
+  startSocketRemoteType
+} from "../../helpers/sockets";
 import PhraseBox from "../PhraseBox/PhraseBox.jsx";
 import TypeBox from "../TypeBox/TypeBox.jsx";
 import ProgressBars from "../ProgressBars/ProgressBars.jsx";
@@ -30,6 +33,7 @@ const Game = ({socket}) => {
 
   useEffect(() => {
     generateStartTimer(setGameStarted);
+    startSocketRemoteType(socket, playersCurrentProgress, setPlayersCurrentProgress);
   }, []);
 
   const handleTyping = (event) => {
@@ -75,7 +79,7 @@ const Game = ({socket}) => {
         phraseSecondPart={phraseSecondPart}
       />
       <ProgressBars
-        player1CurrentProgress={playersCurrentProgress[myUserInfo.id]}
+        playersCurrentProgress={playersCurrentProgress}
       />
       {/*<TypeBox*/}
       {/*  typedPhrase={typedPhrase}*/}

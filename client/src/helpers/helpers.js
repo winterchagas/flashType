@@ -16,6 +16,7 @@ export function shouldCaptureCharacter(character) {
 
 export let myUserInfo = {};
 export let playersInfo;
+export let playersIdNumbersMap = {};
 
 export function setMyUserInfo(userData) {
   Object.keys(userData).forEach((key) => {
@@ -24,6 +25,13 @@ export function setMyUserInfo(userData) {
 }
 
 export function setPlayersInfo(playersData) {
+  let number = 1;
+  for (let key of Object.keys(playersData)) {
+    if (parseInt(key) !== myUserInfo.id) {
+      playersIdNumbersMap[number] = parseInt(key);
+      number++;
+    }
+  }
   playersInfo = playersData;
 }
 
