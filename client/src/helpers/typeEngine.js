@@ -5,6 +5,7 @@ const typedPhrase = [];
 export const phraseFirstPart = [];
 export const phraseErrorPart = [];
 export const phraseSecondPart = [...fullSentence];
+export const playersProgress = {};
 
 export function handleCorrectType(
   socket,

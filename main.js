@@ -3,6 +3,9 @@ const express = require('express');
 const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
+
+require('./server/services/passport');
+require('./server/routes/authRoutes').initializeRoutes(app);
 require('./server/communication').initializeCommunication(io);
 
 if (process.env.ENVIRONMENT === 'production') {
@@ -16,4 +19,4 @@ if (process.env.ENVIRONMENT === 'production') {
 }
 
 
-http.listen(3000, () => console.log('server started '));
+http.listen(5000, () => console.log('server started '));

@@ -5,9 +5,9 @@ class Users {
   }
 
   addUser(name) {
-    const duplicatedUser = Object.keys(this.users)
+    const isDuplicatedUser = Object.keys(this.users)
       .some(key => this.users[key].name === name);
-    if (duplicatedUser) {
+    if (isDuplicatedUser) {
       return null;
     }
     // const user = {name};

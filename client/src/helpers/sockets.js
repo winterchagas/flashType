@@ -1,4 +1,5 @@
-import {setPlayersInfo} from "./helpers";
+import {myUserInfo, setPlayersInfo} from "./helpers";
+import {playersProgress} from "./typeEngine";
 
 export function startSocketGameStarted(socket, setIsReadyToPlay) {
   socket.on('gameStarted', function (playersData) {
@@ -7,12 +8,12 @@ export function startSocketGameStarted(socket, setIsReadyToPlay) {
   });
 }
 
-export function startSocketRemoteType(socket, playersCurrentProgress, setPlayersCurrentProgress) {
+export function startSocketRemoteType(socket, setPlayersCurrentProgress) {
+  console.info('startSocketRemoteType');
   socket.on('remoteType', function (userId, progress) {
-    setPlayersCurrentProgress({
-      ...playersCurrentProgress,
-      [userId]: progress
-    });
     console.info('remoteCorrectType', userId, progress);
+    console.info('playersProgress', playersProgress);
+    playersProgress[userId] = progress;
+    setPlayersCurrentProgress({...playersProgress});
   });
 }

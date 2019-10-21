@@ -5,6 +5,7 @@ import {myUserInfo, playersIdNumbersMap} from '../../helpers/helpers';
 import './index.scss';
 
 function ProgressBars({playersCurrentProgress}) {
+  console.log('playersCurrentProgress', playersCurrentProgress);
   return (
     <div className="phrase-box__progress-bar">
       <Progress

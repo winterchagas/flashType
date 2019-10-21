@@ -1,4 +1,8 @@
-import React, {useState, Fragment, useEffect} from 'react';
+import React, {
+  useState,
+  Fragment,
+  useEffect
+} from 'react';
 import {
   shouldCaptureCharacter,
   myUserInfo,
@@ -14,7 +18,8 @@ import {
   isNextCharacterCorrect,
   phraseFirstPart,
   phraseErrorPart,
-  phraseSecondPart
+  phraseSecondPart,
+  playersProgress
 } from "../../helpers/typeEngine";
 import {
   startSocketRemoteType
@@ -33,7 +38,7 @@ const Game = ({socket}) => {
 
   useEffect(() => {
     generateStartTimer(setGameStarted);
-    startSocketRemoteType(socket, playersCurrentProgress, setPlayersCurrentProgress);
+    startSocketRemoteType(socket, setPlayersCurrentProgress);
   }, []);
 
   const handleTyping = (event) => {
@@ -55,10 +60,8 @@ const Game = ({socket}) => {
         if (isNextCharacterCorrect(event.key)) {
           const progress = calculatePlayer1Progress(setIsGameOver);
           handleCorrectType(socket, myUserInfo, progress, event.key);
-          setPlayersCurrentProgress({
-            ...playersCurrentProgress,
-            [myUserInfo.id]: progress
-          });
+          playersProgress[myUserInfo.id] = progress;
+          setPlayersCurrentProgress({...playersProgress});
         } else {
           handleWrongType();
         }
