@@ -3,6 +3,7 @@ import {setMyUserInfo, myUserInfo} from "../../helpers/helpers";
 import {startSocketGameStarted} from "../../helpers/sockets";
 
 const ModalLogin = ({socket, setIsReadyToPlay}) => {
+  console.log('COOKIE2', document.cookie);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isWaitingForPlayers, setIsWaitingForPlayers] = useState(false);
 
@@ -60,3 +61,28 @@ const ModalLogin = ({socket, setIsReadyToPlay}) => {
 };
 
 export default ModalLogin;
+
+// class Login extends Component {
+//   constructor(props) {
+//     super(props);
+//     this.handleLogin = this.handleLogin.bind(this);
+//   }
+//
+//   handleLogin() {
+//     this.props.googleAuth.signIn();
+//   }
+//
+//   render() {
+//     return (
+//       <div className="login-container">
+//         <div>
+//           <button onClick={this.handleLogin}>
+//             LOGIN WITH GOOGLE
+//           </button>
+//         </div>
+//       </div>
+//     )
+//   }
+// }
+//
+// export default Login;

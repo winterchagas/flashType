@@ -23,7 +23,12 @@ function initializeRoutes(app) {
 
   app.get('/api/current_user', (req, res) => {
     console.log('current_user', req.user);
-    res.send(req.user);
+    if (req.user) {
+      res.send(req.user);
+    }
+    res.send({
+      loggedIn: false
+    });
   });
 
   app.get('/api/logout', (req, res) => {

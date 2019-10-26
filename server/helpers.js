@@ -6,4 +6,17 @@ function buildRoomPlayersInfo(users, playersInRoomIds) {
   return roomPlayers;
 }
 
-module.exports = {buildRoomPlayersInfo};
+function buildDatabaseProfileObject(profile) {
+  return {
+    id: profile.id,
+    email: profile._json.email,
+    photo: profile._json.picture,
+    firstName: profile.name.givenName,
+    lastName: profile.name.familyName,
+  }
+}
+
+module.exports = {
+  buildRoomPlayersInfo,
+  buildDatabaseProfileObject
+};
