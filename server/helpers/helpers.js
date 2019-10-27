@@ -16,7 +16,12 @@ function buildDatabaseProfileObject(profile) {
   }
 }
 
+function generateRandomName() {
+  return `guest-${Date.now()}`
+}
+
 module.exports = {
   buildRoomPlayersInfo,
-  buildDatabaseProfileObject
+  buildDatabaseProfileObject,
+  generateRandomName
 };

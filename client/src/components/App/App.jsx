@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useEffect } from 'react';
+import React, {useState, Fragment, useEffect} from 'react';
 import io from 'socket.io-client';
 import keys from '../../../config/keys'
 import ModalLogin from "../ModalLogin/ModalLogin.jsx";
@@ -8,50 +8,47 @@ import './index.scss';
 
 const socket = io();
 let view;
-let googleAuth;
 
-function initializeGoogleAuth(setIsUserLoggedIn) {
-	const {load, client, auth2} = window.gapi;
-	load('client:auth2', async () => {
-		await client.init({
-			clientId: keys.googleClientID,
-			scope: 'email'
-		});
-		googleAuth = auth2.getAuthInstance();
-		setIsUserLoggedIn(googleAuth.isSignedIn.get());
-		googleAuth.isSignedIn.listen(setIsUserLoggedIn(googleAuth.isSignedIn.get()))
-	});
+function initializeGoogleAuth(setGoogleAuth, setIsUserLoggedIn) {
+  window.gapi.load('client:auth2', () => {
+    window.gapi.client.init({
+      clientId: keys.googleClientID,
+      scope: 'email'
+    })
+      .then(() => {
+          const googleAuth = window.gapi.auth2.getAuthInstance();
+          setGoogleAuth(googleAuth);
+          setIsUserLoggedIn(googleAuth.isSignedIn.get());
+          googleAuth.isSignedIn.listen(() => {
+            console.log('LINSTEN LOG IN', googleAuth.isSignedIn.get());
+            setIsUserLoggedIn(googleAuth.isSignedIn.get())
+          })
+        }
+      );
+  });
 }
 
 const App = () => {
-	const [isReadyToPlay, setIsReadyToPlay] = useState(false);
-	const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  const [isReadyToPlay, setIsReadyToPlay] = useState(false);
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  const [googleAuth, setGoogleAuth] = useState(null);
 
-	useEffect(() => {
-		initializeGoogleAuth(setIsUserLoggedIn);
-	}, []);
+  useEffect(() => {
+    initializeGoogleAuth(setGoogleAuth, setIsUserLoggedIn);
+  }, []);
 
-	if (isReadyToPlay) {
-		view = <Game socket={socket}/>
-	} else {
-		view = <ModalLogin
-			socket={socket}
-			setIsReadyToPlay={setIsReadyToPlay}
-			isUserLoggedIn={isUserLoggedIn}
-		/>
-	}
-	return view;
+  if (isReadyToPlay) {
+    view = <Game socket={socket}/>
+  } else {
+    view = <ModalLogin
+      socket={socket}
+      setIsReadyToPlay={setIsReadyToPlay}
+      isUserLoggedIn={isUserLoggedIn}
+      setIsUserLoggedIn={setIsUserLoggedIn}
+      googleAuth={googleAuth}
+    />
+  }
+  return view;
 };
 
 export default App;
-
-// return isUserLoggedIn ?
-//   (<Router>
-//       <div className="main-container">
-//         <Header/>	          <Header googleAuth={this.googleAuth}/>
-//         <Route path="/dashboard" component={Dashboard}/>
-//         <Route exact path="/" component={Home}/>
-//         <Route path="/modal" component={DetailsModal}/>
-//       </div>	        </div>
-//     </Router>)
-// : <Login googleAuth={this.googleAuth}/>

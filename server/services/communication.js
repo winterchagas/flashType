@@ -1,22 +1,8 @@
-const {Users} = require('./users');
-const {Rooms} = require('./rooms');
-const {buildRoomPlayersInfo} = require('./helpers');
+const {buildRoomPlayersInfo} = require('../helpers/helpers');
 
-const users = new Users();
-const rooms = new Rooms();
-
-function initializeCommunication(io) {
+function initializeCommunication(io, users, rooms) {
   io.on('connection', function (socket) {
     console.log('a user connected');
-
-    socket.on('login', (userName, callback) => {
-      const userAdded = users.addUser(userName);
-      if (userAdded) {
-        callback(true, userAdded);
-      } else {
-        callback(false);
-      }
-    });
 
     socket.on('correctType', (userId, roomId, progress) => {
       socket.to(roomId).emit('remoteType', userId, progress);

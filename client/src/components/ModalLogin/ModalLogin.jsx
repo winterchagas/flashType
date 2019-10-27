@@ -2,72 +2,71 @@ import React, {useState, useEffect} from 'react';
 import {setMyUserInfo, myUserInfo} from "../../helpers/helpers";
 import {startSocketGameStarted} from "../../helpers/sockets";
 
-const ModalLogin = ({socket, setIsReadyToPlay, isUserLoggedIn}) => {
-  const [isWaitingForPlayers, setIsWaitingForPlayers] = useState(false);
+const ModalLogin =
+  ({
+     socket,
+     setIsReadyToPlay,
+     isUserLoggedIn,
+     setIsUserLoggedIn,
+     googleAuth
+   }) => {
+    const [isWaitingForPlayers, setIsWaitingForPlayers] = useState(false);
 
-  useEffect(() => {
-    startSocketGameStarted(socket, setIsReadyToPlay);
-  }, []);
+    useEffect(() => {
+      startSocketGameStarted(socket, setIsReadyToPlay);
+    }, []);
 
-  function handleNameSubmit(event) {
-    event.preventDefault();
-    const userName = event.target[0].value;
-    socket.emit('login', userName, (validUser, userData) => {
-      if (validUser) {
-        // setIsLoggedIn(true);
-        setMyUserInfo(userData);
-      } else {
-        console.log('USER INVALID')
-      }
-    });
-  }
+    async function handlePlayAsGuest() {
+      const response = await fetch('/auth/guest');
+      setMyUserInfo(await response.json());
+    }
 
-  function handleLookForGame() {
-    socket.emit('joinRoom', myUserInfo.id, (roomId) => {
-      if (roomId) {
-        setMyUserInfo({roomId});
-        setIsWaitingForPlayers(true);
-      }
-    });
-  }
+    function handleGoogleLogin() {
+      googleAuth.signIn();
+    }
 
-  return (
-    <>
-      {
-	      isUserLoggedIn ?
-          isWaitingForPlayers ?
-            <div>
-              WAITING FOR OTHER PLAYERS..
-            </div>
-            :
-            <div>
-              <button onClick={handleLookForGame}>
-                READY TO PLAY!
-              </button>
-            </div>
+    function handleLookForGame() {
+      socket.emit('joinRoom', myUserInfo.id, (roomId) => {
+        if (roomId) {
+          setMyUserInfo({roomId});
+          setIsWaitingForPlayers(true);
+        }
+      });
+    }
+
+    return (
+      isUserLoggedIn ?
+        isWaitingForPlayers ?
+          <div>
+            WAITING FOR OTHER PLAYERS..
+          </div>
           :
           <div>
-            <form onSubmit={handleNameSubmit}>
-              <input type="text"/>
-              <button>
-                LOGIN
-              </button>
-            </form>
+            <button onClick={handleLookForGame}>
+              READY TO PLAY!
+            </button>
           </div>
-      }
-    </>)
-};
+        :
+        <>
+          <div>
+            <button onClick={handlePlayAsGuest}>
+              PLAY AS A GUEST
+            </button>
+          </div>
+          <div>
+            <button onClick={handleGoogleLogin}>
+              LOGIN WITH GOOGLE
+            </button>
+          </div>
+        </>
+    );
+  };
 
 export default ModalLogin;
 
-// class Login extends Component {
-//   constructor(props) {
-//     super(props);
-//     this.handleLogin = this.handleLogin.bind(this);
-//   }
-//
+
 //   handleLogin() {
-//     this.props.googleAuth.signIn();
+//     this.props.
 //   }
 //
 //   render() {
