@@ -6,15 +6,15 @@ function buildRoomPlayersInfo(users, playersInRoomIds) {
   return roomPlayers;
 }
 
-function buildDatabaseProfileObject(profile) {
-  return {
-    id: profile.id,
-    email: profile._json.email,
-    photo: profile._json.picture,
-    firstName: profile.name.givenName,
-    lastName: profile.name.familyName,
-  }
-}
+// function buildDatabaseProfileObject(profile) {
+//   return {
+//     id: profile.id,
+//     email: profile._json.email,
+//     photo: profile._json.picture,
+//     firstName: profile.name.givenName,
+//     lastName: profile.name.familyName,
+//   }
+// }
 
 function generateRandomName() {
   return `guest-${Date.now()}`
@@ -22,6 +22,6 @@ function generateRandomName() {
 
 module.exports = {
   buildRoomPlayersInfo,
-  buildDatabaseProfileObject,
+  // buildDatabaseProfileObject,
   generateRandomName
 };

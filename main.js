@@ -1,10 +1,13 @@
 const path = require('path');
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser');
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 const {Users} = require('./server/services/users');
 const {Rooms} = require('./server/services/rooms');
+
+app.use(bodyParser.json());
 
 const users = new Users();
 const rooms = new Rooms();

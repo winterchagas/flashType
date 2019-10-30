@@ -1,91 +1,93 @@
-import React, {useState, useEffect} from 'react';
-import {setMyUserInfo, myUserInfo} from "../../helpers/helpers";
-import {startSocketGameStarted} from "../../helpers/sockets";
+import React, { useState, useEffect } from 'react';
+import { setMyUserInfo, myUserInfo, buildGoogleSignInPayload } from "../../helpers/helpers";
+import { startSocketGameStarted } from "../../helpers/sockets";
 
 const ModalLogin =
-  ({
-     socket,
-     setIsReadyToPlay,
-     isUserLoggedIn,
-     setIsUserLoggedIn,
-     googleAuth
-   }) => {
-    const [isWaitingForPlayers, setIsWaitingForPlayers] = useState(false);
+	({
+		 socket,
+		 setIsReadyToPlay,
+		 isUserLoggedIn,
+		 setIsUserLoggedIn,
+		 googleAuth
+	 }) => {
+		const [isWaitingForPlayers, setIsWaitingForPlayers] = useState(false);
 
-    useEffect(() => {
-      startSocketGameStarted(socket, setIsReadyToPlay);
-    }, []);
+		useEffect(() => {
+			startSocketGameStarted(socket, setIsReadyToPlay);
+		}, []);
 
-    async function handlePlayAsGuest() {
-      const response = await fetch('/auth/guest');
-      setMyUserInfo(await response.json());
-    }
+		async function handlePlayAsGuest() {
+			const response = await fetch('/auth/guest');
+			setMyUserInfo(await response.json());
+		}
 
-    function handleGoogleLogin() {
-      googleAuth.signIn();
-    }
+		async function handleGoogleLogin() {
+			const currentUser = await googleAuth.signIn();
+			const payload = buildGoogleSignInPayload(currentUser);
+			const response = await fetch('/auth/google', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(payload)
+			});
+			console.log(await response.json());
+			// console.log('ACCESS TOKEN', currentUser.getAuthResponse().access_token);
+			// console.log('ID TOKEN', currentUser.getAuthResponse().id_token);
+		}
 
-    function handleLookForGame() {
-      socket.emit('joinRoom', myUserInfo.id, (roomId) => {
-        if (roomId) {
-          setMyUserInfo({roomId});
-          setIsWaitingForPlayers(true);
-        }
-      });
-    }
+		async function handleGoogleLogout() {
+			await googleAuth.signOut();
+			console.log('LOGGED OUT');
+			setIsUserLoggedIn(false);
+		}
 
-    return (
-      isUserLoggedIn ?
-        isWaitingForPlayers ?
-          <div>
-            WAITING FOR OTHER PLAYERS..
-          </div>
-          :
-          <div>
-            <button onClick={handleLookForGame}>
-              READY TO PLAY!
-            </button>
-          </div>
-        :
-        <>
-          <div>
-            <button onClick={handlePlayAsGuest}>
-              PLAY AS A GUEST
-            </button>
-          </div>
-          <div>
-            <button onClick={handleGoogleLogin}>
-              LOGIN WITH GOOGLE
-            </button>
-          </div>
-        </>
-    );
-  };
+		function handleLookForGame() {
+			socket.emit('joinRoom', myUserInfo.id, (roomId) => {
+				if (roomId) {
+					setMyUserInfo({ roomId });
+					setIsWaitingForPlayers(true);
+				}
+			});
+		}
+
+		return (
+			isUserLoggedIn ?
+				isWaitingForPlayers ?
+					<div>
+						WAITING FOR OTHER PLAYERS..
+					</div>
+					:
+					<>
+						<div>
+							<button onClick={handleLookForGame}>
+								READY TO PLAY!
+							</button>
+						</div>
+						<div>
+							<button onClick={handleGoogleLogout}>
+								LOGOUT
+							</button>
+						</div>
+					</>
+				:
+				<>
+					<div>
+						<button onClick={handlePlayAsGuest}>
+							PLAY AS A GUEST
+						</button>
+					</div>
+					<div>
+						<button onClick={handleGoogleLogin}>
+							LOGIN WITH GOOGLE
+						</button>
+					</div>
+				</>
+		);
+	};
 
 export default ModalLogin;
 
-
-//   handleLogin() {
-//     this.props.
-//   }
-//
-//   render() {
-//     return (
-//       <div className="login-container">
-//         <div>
-//           <button onClick={this.handleLogin}>
-//             LOGIN WITH GOOGLE
-//           </button>
-//         </div>
-//       </div>
-//     )
-//   }
-// }
-//
-// export default Login;
-
-//
-// this.googleAuth = window.gapi.auth2.getAuthInstance();
 // this.googleAuth.signIn().then(response => {
 // 	IS_CONSOLE_LOG_OPEN && console.log("signUp response", response);
 // 	if (response.Zi.token_type === "Bearer") {
