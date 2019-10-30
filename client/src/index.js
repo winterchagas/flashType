@@ -4,8 +4,8 @@ import App from "./components/App/App.jsx";
 
 ReactDOM.render(<App/>, document.getElementById("app"));
 
-// if (process.env.ENVIRONMENT !== 'production') {
-//   if (module.hot) {
-//     module.hot.accept();
-//   }
-// }
+if (process.env.ENVIRONMENT !== 'production') {
+  if (module.hot) {
+    module.hot.accept();
+  }
+}

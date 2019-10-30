@@ -60,6 +60,17 @@ function getModule(isProduction) {
           isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
           'css-loader'
         ]
+      },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [
+          {
+            loader: "file-loader",
+            options: {
+              name: "[path][name].[hash].[ext]"
+            }
+          }
+        ]
       }
     ]
   }

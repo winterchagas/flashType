@@ -8,11 +8,11 @@ function initializeDatabase() {
 }
 
 async function createUser(profile) {
-  console.log('CREATE USER', profile);
   try {
     await firebase.database()
       .ref(`users/${profile.id}`)
       .set(profile);
+    console.log('CREATED USER', profile);
     return {userCreated: true}
   } catch (createUserError) {
     console.log('ERROR CREATING USER', createUserError);

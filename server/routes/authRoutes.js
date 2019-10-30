@@ -17,15 +17,16 @@ function initializeRoutes(app, users) {
 	app.post('/auth/google', async (req, res) => {
 		console.log(' --------------   REQUEST BODY  ------------------');
 		console.log(req.body);
-		let { ok, userFound, findUserError } = await findUser(req.body.id);
+		let { ok, user, findUserError } = await findUser(req.body.id);
 		if (ok) {
-			if (userFound) {
+			if (user) {
 				res.status(200)
 					.send(
 						JSON.stringify({
 							ok: true,
 							message: 'user found'
 						}));
+				return;
 			}
 			const { userCreated, createUserError } = await createUser(req.body);
 			if (userCreated) {
@@ -35,6 +36,7 @@ function initializeRoutes(app, users) {
 							ok: true,
 							message: 'user created'
 						}));
+				return;
 			}
 			res.status(503)
 				.send(
@@ -42,6 +44,7 @@ function initializeRoutes(app, users) {
 						ok: false,
 						message: `Failed to create user - ${createUserError}`
 					}));
+			return;
 		}
 		res.status(503)
 			.send(
