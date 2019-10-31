@@ -17,3 +17,8 @@ export function startSocketRemoteType(socket, setPlayersCurrentProgress) {
     setPlayersCurrentProgress({...playersProgress});
   });
 }
+
+export function emitEventGameOver(socket) {
+  console.info('emitEventGameOver');
+  socket.emit('gameOver', myUserInfo);
+}

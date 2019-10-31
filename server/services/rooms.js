@@ -1,16 +1,16 @@
+const generateUuid = require('uuid/v1');
+
 class Rooms {
   constructor() {
     this.rooms = {};
-    this.roomId = 1;
   }
 
   addRoom() {
-    this.rooms[this.roomId] = {
+    const addedRoomId = generateUuid();
+    this.rooms[addedRoomId] = {
       players: [],
       full: false
     };
-    const addedRoomId = this.roomId;
-    this.roomId++;
     console.log('ROOM ADDED', addedRoomId, this.rooms);
     return addedRoomId;
   }
@@ -40,7 +40,8 @@ class Rooms {
   }
 
   deleteRoom(roomId) {
-    delete this.rooms[roomId];
+    if (this.rooms[roomId]) delete this.rooms[roomId];
+    console.log('ROOM DELETED', roomId);
   }
 }
 

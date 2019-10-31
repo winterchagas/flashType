@@ -1,26 +1,27 @@
 class Users {
   constructor() {
     this.users = {};
-    this.id = 1;
   }
 
-  addUser(name) {
-    const isDuplicatedUser = Object.keys(this.users)
-      .some(key => this.users[key].name === name);
-    if (isDuplicatedUser) {
-      return null;
-    }
+  addUser(userName, userId) {
+    // const isDuplicatedUser = Object.keys(this.users)
+    //   .some(key => this.users[key].name === name);
+    // if (isDuplicatedUser) {
+    //   return null;
+    // }
     // const user = {name};
-    const id = this.id;
-    this.users[this.id] = name;
-    this.id++;
-    console.log('USER ADDED', name, this.users);
-    return {name, id};
+    this.users[userId] = userName;
+    console.log('USER ADDED', userName, this.users);
+    return {userName, userId};
   }
-
 
   getUser(userId) {
     return this.users[userId];
+  }
+
+  deleteUser(userId) {
+    if (this.users[userId]) delete this.users[userId];
+    console.log('USER DELETED', userId);
   }
 
   resetUsers() {

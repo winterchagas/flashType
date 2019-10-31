@@ -39,6 +39,9 @@ const Game = ({socket}) => {
   useEffect(() => {
     generateStartTimer(setGameStarted);
     startSocketRemoteType(socket, setPlayersCurrentProgress);
+    return function leaveWebSite() {
+      socket.emit('playerLeft', myUserInfo);
+    }
   }, []);
 
   const handleTyping = (event) => {
@@ -60,7 +63,7 @@ const Game = ({socket}) => {
         if (isNextCharacterCorrect(event.key)) {
           const progress = calculatePlayer1Progress(setIsGameOver);
           handleCorrectType(socket, myUserInfo, progress, event.key);
-          playersProgress[myUserInfo.id] = progress;
+          playersProgress[myUserInfo.userId] = progress;
           setPlayersCurrentProgress({...playersProgress});
         } else {
           handleWrongType();

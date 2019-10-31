@@ -9,14 +9,15 @@ export const playersProgress = {};
 
 export function handleCorrectType(
   socket,
-  {id, roomId},
+  myUserInfo,
   progress,
   character
 ) {
   const removedCharacter = phraseSecondPart.shift();
   phraseFirstPart.push(removedCharacter);
   typedPhrase.push(character);
-  socket.emit('correctType', id, roomId, progress)
+  // todo debounce
+  socket.emit('correctType', myUserInfo, progress)
 }
 
 export function handleWrongType(character) {

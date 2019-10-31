@@ -26,7 +26,7 @@ const ModalLogin =
       const userInfoResponse = await fetch('/auth/guest');
       setMyUserInfo(await userInfoResponse.json());
       console.log('myUserInfo', myUserInfo);
-      socket.emit('joinRoom', myUserInfo.id, (roomId) => {
+      socket.emit('joinRoom', myUserInfo.userId, (roomId) => {
         if (roomId) {
           setMyUserInfo({roomId});
           console.log('myUserInfo', myUserInfo);

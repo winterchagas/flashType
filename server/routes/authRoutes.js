@@ -1,3 +1,4 @@
+const generateUuid = require('uuid/v1');
 // const passport = require('passport');
 // const cookieSession = require('cookie-session');
 // const keys = require('../config/keys').cookieKey;
@@ -56,7 +57,8 @@ function initializeRoutes(app, users) {
 
 	app.get('/auth/guest', (req, res) => {
 		const userName = generateRandomName();
-		const userAdded = users.addUser(userName);
+		const userId = generateUuid();
+		const userAdded = users.addUser(userName, userId);
 		if (userAdded) {
 			res.status(200).send(userAdded);
 		} else {
