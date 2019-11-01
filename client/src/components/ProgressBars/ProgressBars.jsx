@@ -12,7 +12,7 @@ function ProgressBars({playersCurrentProgress}) {
         type="circle"
         strokeWidth={10}
         width={100}
-        percent={playersCurrentProgress[myUserInfo.id]}
+        percent={playersCurrentProgress[myUserInfo.userId]}
       />
       <Progress
         percent={playersCurrentProgress[playersIdNumbersMap[1]]}

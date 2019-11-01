@@ -12,7 +12,6 @@ import {
 import {
   hasPreviousTypeError,
   handleWrongType,
-  calculatePlayer1Progress,
   handleBackspaceType,
   handleCorrectType,
   isNextCharacterCorrect,
@@ -61,9 +60,7 @@ const Game = ({socket}) => {
         handleWrongType(event.key);
       } else {
         if (isNextCharacterCorrect(event.key)) {
-          const progress = calculatePlayer1Progress(setIsGameOver);
-          handleCorrectType(socket, myUserInfo, progress, event.key);
-          playersProgress[myUserInfo.userId] = progress;
+          handleCorrectType(socket, event.key, setIsGameOver);
           setPlayersCurrentProgress({...playersProgress});
         } else {
           handleWrongType();

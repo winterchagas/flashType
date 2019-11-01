@@ -25,11 +25,9 @@ const ModalLogin =
     async function handlePlayAsGuest() {
       const userInfoResponse = await fetch('/auth/guest');
       setMyUserInfo(await userInfoResponse.json());
-      console.log('myUserInfo', myUserInfo);
       socket.emit('joinRoom', myUserInfo.userId, (roomId) => {
         if (roomId) {
           setMyUserInfo({roomId});
-          console.log('myUserInfo', myUserInfo);
           setIsUserLoggedIn(true);
           setIsWaitingForPlayers(true);
         }
@@ -46,7 +44,6 @@ const ModalLogin =
         },
         body: JSON.stringify(payload)
       });
-      console.log(await response.json());
       // console.log('ACCESS TOKEN', currentUser.getAuthResponse().access_token);
       // console.log('ID TOKEN', currentUser.getAuthResponse().id_token);
     }

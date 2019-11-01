@@ -1,5 +1,7 @@
-const fullSentence = 'The numbers in the table specifies the first browser version that fully supports the selector.';
-// const fullSentence = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+import {myUserInfo} from "./helpers";
+
+// const fullSentence = 'The numbers in the table specifies the first browser version that fully supports the selector.';
+const fullSentence = 'aa';
 const sentenceLength = fullSentence.length;
 const typedPhrase = [];
 export const phraseFirstPart = [];
@@ -9,13 +11,14 @@ export const playersProgress = {};
 
 export function handleCorrectType(
   socket,
-  myUserInfo,
-  progress,
-  character
+  character,
+  setIsGameOver
 ) {
   const removedCharacter = phraseSecondPart.shift();
   phraseFirstPart.push(removedCharacter);
   typedPhrase.push(character);
+  const progress = calculatePlayer1Progress(setIsGameOver);
+  playersProgress[myUserInfo.userId] = progress;
   // todo debounce
   socket.emit('correctType', myUserInfo, progress)
 }

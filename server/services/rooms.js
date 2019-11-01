@@ -36,7 +36,7 @@ class Rooms {
         break;
       }
     }
-    return Number(availableRoomId);
+    return availableRoomId;
   }
 
   deleteRoom(roomId) {
