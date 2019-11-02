@@ -18,7 +18,7 @@ function initializeRoutes(app, users) {
 	app.post('/auth/google', async (req, res) => {
 		console.log(' --------------   REQUEST BODY  ------------------');
 		console.log(req.body);
-		let { ok, user, findUserError } = await findUser(req.body.id);
+		let { ok, user, findUserError } = await findUser(req.body.userId);
 		if (ok) {
 			if (user) {
 				res.status(200)
@@ -64,11 +64,6 @@ function initializeRoutes(app, users) {
 		} else {
 			res.status(400).send(false);
 		}
-	});
-
-	app.get('/api/logout', (req, res) => {
-		req.logout();
-		res.redirect('/');
 	});
 };
 

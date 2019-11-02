@@ -7,7 +7,6 @@ import {
   shouldCaptureCharacter,
   myUserInfo,
   playersInfo,
-  generateStartTimer
 } from "../../helpers/helpers";
 import {
   hasPreviousTypeError,
@@ -26,6 +25,7 @@ import {
 import PhraseBox from "../PhraseBox/PhraseBox.jsx";
 import TypeBox from "../TypeBox/TypeBox.jsx";
 import ProgressBars from "../ProgressBars/ProgressBars.jsx";
+import TimerModal from "../TimerModal/TimerModal.jsx";
 
 import './index.scss';
 
@@ -33,10 +33,9 @@ const Game = ({socket}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [playersCurrentProgress, setPlayersCurrentProgress] = useState({});
   const [gameStarted, setGameStarted] = useState(false);
-  const [isGameOver, setIsGameOver] = useState(false);
+  const [isEndOfSentence, setIsEndOfSentence] = useState(false);
 
   useEffect(() => {
-    generateStartTimer(setGameStarted);
     startSocketRemoteType(socket, setPlayersCurrentProgress);
     return function leaveWebSite() {
       socket.emit('playerLeft', myUserInfo);
@@ -45,7 +44,7 @@ const Game = ({socket}) => {
 
   const handleTyping = (event) => {
     if (!gameStarted) return;
-    if (isGameOver) return;
+    if (isEndOfSentence) return;
 
     if (shouldCaptureCharacter(event.key)) {
       if (event.key === 'Backspace') {
@@ -60,7 +59,7 @@ const Game = ({socket}) => {
         handleWrongType(event.key);
       } else {
         if (isNextCharacterCorrect(event.key)) {
-          handleCorrectType(socket, event.key, setIsGameOver);
+          handleCorrectType(socket, event.key, setIsEndOfSentence);
           setPlayersCurrentProgress({...playersProgress});
         } else {
           handleWrongType();
@@ -71,24 +70,31 @@ const Game = ({socket}) => {
   };
 
   return (
-    <div
-      className="phrase-box"
-      tabIndex={0}
-      onKeyDown={handleTyping}
-    >
-      <PhraseBox
-        phraseFirstPart={phraseFirstPart}
-        phraseErrorPart={phraseErrorPart}
-        phraseSecondPart={phraseSecondPart}
-      />
-      <ProgressBars
-        playersCurrentProgress={playersCurrentProgress}
-      />
-      {/*<TypeBox*/}
-      {/*  typedPhrase={typedPhrase}*/}
-      {/*  phraseSecondPart={phraseSecondPart}*/}
-      {/*/>*/}
-    </div>
+    <>
+      <div
+        className="phrase-box"
+        tabIndex={0}
+        onKeyDown={handleTyping}>
+        <PhraseBox
+          phraseFirstPart={phraseFirstPart}
+          phraseErrorPart={phraseErrorPart}
+          phraseSecondPart={phraseSecondPart}
+        />
+        <ProgressBars
+          playersCurrentProgress={playersCurrentProgress}
+        />
+        {/*<TypeBox*/}
+        {/*  typedPhrase={typedPhrase}*/}
+        {/*  phraseSecondPart={phraseSecondPart}*/}
+        {/*/>*/}
+      </div>
+      {
+        !gameStarted &&
+        <TimerModal
+          setGameStarted={setGameStarted}
+        />
+      }
+    </>
   );
 };
 

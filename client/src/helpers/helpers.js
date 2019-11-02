@@ -35,25 +35,21 @@ export function setPlayersInfo(playersData) {
   playersInfo = playersData;
 }
 
-export function generateStartTimer(setGameStarted) {
-  let time = 3;
-  const interval = setInterval(() => {
-    console.log('GAME STARTING IN', time);
-    time--;
-  }, 1000);
-  setTimeout(() => {
-    console.log('GAME STARTED');
-    clearInterval(interval);
-    setGameStarted(true);
-  }, 3999);
-}
-
 export function buildGoogleSignInPayload(currentUser) {
   const profile = currentUser.getBasicProfile();
   return {
-    id: currentUser.getId(),
+    userId: currentUser.getId(),
     name: profile.getName(),
     email: profile.getEmail(),
     image: profile.getImageUrl(),
   }
+}
+
+export function setUserInfoFromGoogle(googleAuth) {
+  const googleUser = googleAuth.currentUser.get();
+  const userInfo = {
+    userId: googleUser.getId(),
+    userName: googleUser.getBasicProfile().getName(),
+  };
+  setMyUserInfo(userInfo);
 }

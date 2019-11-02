@@ -3,6 +3,7 @@ import io from 'socket.io-client';
 import keys from '../../../config/keys'
 import ModalLogin from "../ModalLogin/ModalLogin.jsx";
 import Game from "../Game/Game.jsx";
+import {setUserInfoFromGoogle} from '../../helpers/helpers';
 
 import './index.scss';
 
@@ -18,10 +19,16 @@ function initializeGoogleAuth(setGoogleAuth, setIsUserLoggedIn) {
       .then(() => {
           const googleAuth = window.gapi.auth2.getAuthInstance();
           setGoogleAuth(googleAuth);
-          setIsUserLoggedIn(googleAuth.isSignedIn.get());
+          const isLoggedIn = googleAuth.isSignedIn.get();
+          if (isLoggedIn) {
+            setIsUserLoggedIn(true);
+            setUserInfoFromGoogle(googleAuth);
+          }
+
           googleAuth.isSignedIn.listen(() => {
             console.log('LINSTEN LOG IN', googleAuth.isSignedIn.get());
-            setIsUserLoggedIn(googleAuth.isSignedIn.get())
+            setIsUserLoggedIn(googleAuth.isSignedIn.get());
+            setUserInfoFromGoogle(googleAuth);
           })
         }
       );

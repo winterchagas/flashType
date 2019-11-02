@@ -1,0 +1,17 @@
+.time {
+  &__container {
+    height: 100vh;
+    background-color: darkred;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__box {
+    height: 400px;
+    width: 400px;
+    border: 2px solid black;
+    font-size: 50px;
+    font-weight: 600;
+  }
+}

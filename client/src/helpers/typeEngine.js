@@ -12,12 +12,12 @@ export const playersProgress = {};
 export function handleCorrectType(
   socket,
   character,
-  setIsGameOver
+  setIsEndOfSentence
 ) {
   const removedCharacter = phraseSecondPart.shift();
   phraseFirstPart.push(removedCharacter);
   typedPhrase.push(character);
-  const progress = calculatePlayer1Progress(setIsGameOver);
+  const progress = calculatePlayer1Progress(setIsEndOfSentence);
   playersProgress[myUserInfo.userId] = progress;
   // todo debounce
   socket.emit('correctType', myUserInfo, progress)
@@ -48,9 +48,9 @@ export const hasPreviousTypeError = () => phraseErrorPart.length > 0;
 
 export const isNextCharacterCorrect = (character) => character === phraseSecondPart[0];
 
-export function calculatePlayer1Progress(setIsGameOver) {
+export function calculatePlayer1Progress(setIsEndOfSentence) {
   const progress = ((phraseFirstPart.length / sentenceLength) * 100)
     .toFixed(0);
-  if (parseInt(progress) === 100) setIsGameOver(true);
+  if (parseInt(progress) === 100) setIsEndOfSentence(true);
   return progress;
 }

@@ -10,7 +10,7 @@ function initializeDatabase() {
 async function createUser(profile) {
   try {
     await firebase.database()
-      .ref(`users/${profile.id}`)
+      .ref(`users/${profile.userId}`)
       .set(profile);
     console.log('CREATED USER', profile);
     return {userCreated: true}
@@ -25,13 +25,13 @@ async function findUser(uuid) {
     const snapshot = await firebase.database()
       .ref(`users/${uuid}`)
       .once('value');
-    console.log('USER RESPONSE', snapshot.val());
+    console.log('FIND USER RESPONSE', snapshot.val());
     return {
       ok: true,
       user: snapshot.val()
     }
   } catch (error) {
-    console.log('ERROR FETCHING USER', error);
+    console.log('ERROR FINDING USER', error);
     return {
       ok: false,
       findUserError: error

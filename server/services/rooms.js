@@ -18,6 +18,10 @@ class Rooms {
   joinRoom(roomId, playerId) {
     let startGame = false;
     const room = this.rooms[roomId];
+    const isPLayerInRoom = room.players.some(id => playerId === id);
+    if (isPLayerInRoom) {
+      return {failed: true};
+    }
     room.players.push(playerId);
     if (room.players.length > 1) {
       room.full = true;

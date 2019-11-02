@@ -14,9 +14,12 @@ function initializeCommunication(io, users, rooms) {
         socket.join(availableRoomId);
         const {
           startGame,
-          playersIds
+          playersIds,
+          failed
         } = rooms.joinRoom(availableRoomId, userId);
-        if (startGame) {
+        if (failed) {
+          respondJoinedRoom(false);
+        } else if (startGame) {
           const playersInfo = buildRoomPlayersInfo(users, playersIds);
           setTimeout(() => {
             // todo make bots

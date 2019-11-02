@@ -30,6 +30,9 @@ const ModalLogin =
           setMyUserInfo({roomId});
           setIsUserLoggedIn(true);
           setIsWaitingForPlayers(true);
+        } else {
+          //todo display message to the user
+          console.log('YOU ARE ALREADY PLAYING IN THIS ROOM');
         }
       });
     }
@@ -54,11 +57,14 @@ const ModalLogin =
       setIsUserLoggedIn(false);
     }
 
-    function handleLookForGame() {
-      socket.emit('joinRoom', myUserInfo.id, (roomId) => {
+    function handlePlayGame() {
+      socket.emit('joinRoom', myUserInfo.userId, (roomId) => {
         if (roomId) {
           setMyUserInfo({roomId});
           setIsWaitingForPlayers(true);
+        } else {
+          //todo display message to the user
+          console.log('YOU ARE ALREADY PLAYING IN THIS ROOM');
         }
       });
     }
@@ -75,11 +81,18 @@ const ModalLogin =
                   <Spinner/>
                 </div>
                 :
-                <div>
-                  <button onClick={handleLookForGame}>
-                    READY TO PLAY!
-                  </button>
-                </div>
+                <>
+                  <div>
+                    <button onClick={handlePlayGame}>
+                      READY TO PLAY!
+                    </button>
+                  </div>
+                  <div>
+                    <button onClick={handleGoogleLogout}>
+                      LOGOUT
+                    </button>
+                  </div>
+                </>
               :
               <>
                 <h3 className="login__box-title">Real-Time Typing Competition</h3>
