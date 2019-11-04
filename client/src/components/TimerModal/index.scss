@@ -1,10 +1,11 @@
-.time {
+.timer {
   &__container {
-    height: 100vh;
-    background-color: darkred;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.6);
   }
 
   &__box {
@@ -13,5 +14,14 @@
     border: 2px solid black;
     font-size: 50px;
     font-weight: 600;
+
+    background: white;
+    border-radius: 5px;
+    padding: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
   }
 }

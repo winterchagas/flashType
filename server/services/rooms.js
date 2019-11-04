@@ -23,7 +23,7 @@ class Rooms {
       return {failed: true};
     }
     room.players.push(playerId);
-    if (room.players.length > 1) {
+    if (room.players.length > 2) {
       room.full = true;
       startGame = true;
     }
@@ -31,7 +31,14 @@ class Rooms {
     return {startGame, playersIds: room.players};
   }
 
-  searchRooms() {
+  leaveRoom(roomId, playerId) {
+    const room = this.rooms[roomId];
+    room.players = room.players.filter(userId => playerId !== userId);
+    console.log('leaveRoom', room.players);
+    return room.players.length;
+  }
+
+  searchAvailableRoom() {
     let availableRoomId;
     for (const roomId of Object.keys(this.rooms)) {
       if (!this.rooms[roomId].full) {
@@ -45,7 +52,7 @@ class Rooms {
 
   deleteRoom(roomId) {
     if (this.rooms[roomId]) delete this.rooms[roomId];
-    console.log('ROOM DELETED', roomId);
+    console.log('ROOM DELETED ?', roomId, !this.rooms[roomId]);
   }
 }
 

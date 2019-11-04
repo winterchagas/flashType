@@ -20,8 +20,22 @@ function generateRandomName() {
   return `guest-${Date.now()}`
 }
 
+function calculateWpm(match, playerId) {
+  const {numberOfWords} = match;
+  const {startTime, endTime} = match[playerId];
+  return `guest-${Date.now()}`
+}
+
+function calculateCps(match, playerId) {
+  const {numberOfCharacters} = match;
+  const {startTime, endTime} = match[playerId];
+  return `guest-${Date.now()}`
+}
+
 module.exports = {
   buildRoomPlayersInfo,
   // buildDatabaseProfileObject,
-  generateRandomName
+  generateRandomName,
+  calculateWpm,
+  calculateCps
 };

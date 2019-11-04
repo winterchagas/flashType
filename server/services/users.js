@@ -25,8 +25,6 @@ class Users {
   }
 
   resetUsers() {
-    this.users = [];
-    this.id = 1;
   }
 }
 

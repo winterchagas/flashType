@@ -4,6 +4,7 @@ import keys from '../../../config/keys'
 import ModalLogin from "../ModalLogin/ModalLogin.jsx";
 import Game from "../Game/Game.jsx";
 import {setUserInfoFromGoogle} from '../../helpers/helpers';
+import {startSocketStartGame} from "../../helpers/sockets";
 
 import './index.scss';
 
@@ -42,14 +43,14 @@ const App = () => {
 
   useEffect(() => {
     initializeGoogleAuth(setGoogleAuth, setIsUserLoggedIn);
+    startSocketStartGame(socket, setIsReadyToPlay);
   }, []);
 
   if (isReadyToPlay) {
-    view = <Game socket={socket}/>
+    view = <Game socket={socket} setIsUserLoggedIn={setIsUserLoggedIn}/>
   } else {
     view = <ModalLogin
       socket={socket}
-      setIsReadyToPlay={setIsReadyToPlay}
       isUserLoggedIn={isUserLoggedIn}
       setIsUserLoggedIn={setIsUserLoggedIn}
       googleAuth={googleAuth}

@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import {setMyUserInfo, myUserInfo, buildGoogleSignInPayload} from "../../helpers/helpers";
-import {startSocketGameStarted} from "../../helpers/sockets";
 import Header from '../Header/Header.jsx';
 import Spinner from '../Spinner/Spinner.jsx';
 import googleLogo from '../../../../assets/google-plus.svg'
@@ -11,16 +10,11 @@ import './index.scss';
 const ModalLogin =
   ({
      socket,
-     setIsReadyToPlay,
      isUserLoggedIn,
      setIsUserLoggedIn,
      googleAuth
    }) => {
     const [isWaitingForPlayers, setIsWaitingForPlayers] = useState(false);
-
-    useEffect(() => {
-      startSocketGameStarted(socket, setIsReadyToPlay);
-    }, []);
 
     async function handlePlayAsGuest() {
       const userInfoResponse = await fetch('/auth/guest');

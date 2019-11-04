@@ -1,8 +1,8 @@
 import {myUserInfo, setPlayersInfo} from "./helpers";
 import {playersProgress} from "./typeEngine";
 
-export function startSocketGameStarted(socket, setIsReadyToPlay) {
-  socket.on('gameStarted', function (playersData) {
+export function startSocketStartGame(socket, setIsReadyToPlay) {
+  socket.on('startGame', function (playersData) {
     setPlayersInfo(playersData);
     setIsReadyToPlay(true);
   });
@@ -21,4 +21,10 @@ export function startSocketRemoteType(socket, setPlayersCurrentProgress) {
 export function emitEventGameOver(socket) {
   console.info('emitEventGameOver');
   socket.emit('gameOver', myUserInfo);
+}
+
+export function startSocketPlayerLeft(socket) {
+  socket.on('playerLeft', function (userId) {
+    console.info('playerLeft', userId);
+  });
 }

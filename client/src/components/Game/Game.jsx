@@ -20,7 +20,8 @@ import {
   playersProgress
 } from "../../helpers/typeEngine";
 import {
-  startSocketRemoteType
+  startSocketRemoteType,
+  startSocketPlayerLeft
 } from "../../helpers/sockets";
 import PhraseBox from "../PhraseBox/PhraseBox.jsx";
 import TypeBox from "../TypeBox/TypeBox.jsx";
@@ -29,7 +30,7 @@ import TimerModal from "../TimerModal/TimerModal.jsx";
 
 import './index.scss';
 
-const Game = ({socket}) => {
+const Game = ({socket, setIsUserLoggedIn}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [playersCurrentProgress, setPlayersCurrentProgress] = useState({});
   const [gameStarted, setGameStarted] = useState(false);
@@ -37,8 +38,9 @@ const Game = ({socket}) => {
 
   useEffect(() => {
     startSocketRemoteType(socket, setPlayersCurrentProgress);
-    return function leaveWebSite() {
-      socket.emit('playerLeft', myUserInfo);
+    startSocketPlayerLeft(socket);
+    return function leaveApplication() {
+      socket.emit('leaveGame', myUserInfo);
     }
   }, []);
 
