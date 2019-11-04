@@ -17,6 +17,7 @@ class Matches {
         cps: null,
         startTime: null,
         endTime: null,
+	      elapsedTime: null,
       }
     });
     console.log('MATCH ADDED', matchId);
@@ -28,7 +29,9 @@ class Matches {
   }
 
   endUserTimer(matchId, playerId) {
-    this.matches[matchId][playerId].endTime = Date.now();
+  	const match = this.matches[matchId][playerId];
+    match.endTime = Date.now();
+    match.elapsedTime = (match.endTime - match.startTime) / 1000;
   }
 
   updateUserStats(matchId, playerId) {

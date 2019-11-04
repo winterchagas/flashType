@@ -39,9 +39,6 @@ const Game = ({socket, setIsUserLoggedIn}) => {
   useEffect(() => {
     startSocketRemoteType(socket, setPlayersCurrentProgress);
     startSocketPlayerLeft(socket);
-    return function leaveApplication() {
-      socket.emit('leaveGame', myUserInfo);
-    }
   }, []);
 
   const handleTyping = (event) => {
@@ -94,6 +91,7 @@ const Game = ({socket, setIsUserLoggedIn}) => {
         !gameStarted &&
         <TimerModal
           setGameStarted={setGameStarted}
+          socket={socket}
         />
       }
     </>

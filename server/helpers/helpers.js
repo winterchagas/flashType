@@ -22,14 +22,14 @@ function generateRandomName() {
 
 function calculateWpm(match, playerId) {
   const {numberOfWords} = match;
-  const {startTime, endTime} = match[playerId];
-  return `guest-${Date.now()}`
+  const {elapsedTime} = match[playerId];
+  return numberOfWords / (elapsedTime / 60)
 }
 
 function calculateCps(match, playerId) {
   const {numberOfCharacters} = match;
-  const {startTime, endTime} = match[playerId];
-  return `guest-${Date.now()}`
+	const {elapsedTime} = match[playerId];
+  return numberOfCharacters / elapsedTime
 }
 
 module.exports = {

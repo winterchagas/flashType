@@ -19,8 +19,7 @@ export function handleCorrectType(
   typedPhrase.push(character);
   const progress = calculatePlayer1Progress(setIsEndOfSentence);
   playersProgress[myUserInfo.userId] = progress;
-  // todo debounce
-  socket.emit('correctType', myUserInfo, progress)
+  socket.emit('correctType', progress)
 }
 
 export function handleWrongType(character) {
