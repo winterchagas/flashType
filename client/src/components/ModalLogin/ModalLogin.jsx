@@ -1,9 +1,14 @@
 import React, {useState, useEffect} from 'react';
-import {setMyUserInfo, myUserInfo, buildGoogleSignInPayload} from "../../helpers/helpers";
+import {
+  setPlayersInfo,
+  playersInfo,
+  setMyUserInfo,
+  myUserInfo,
+  buildGoogleSignInPayload
+} from "../../helpers/helpers";
 import Header from '../Header/Header.jsx';
 import Spinner from '../Spinner/Spinner.jsx';
 import googleLogo from '../../../../assets/google-plus.svg'
-
 
 import './index.scss';
 
@@ -19,14 +24,16 @@ const ModalLogin =
     async function handlePlayAsGuest() {
       const userInfoResponse = await fetch('/auth/guest');
       setMyUserInfo(await userInfoResponse.json());
-      socket.emit('joinRoom', myUserInfo.userId, (roomId) => {
+      socket.emit('joinRoom', myUserInfo.userId, (roomId, playersData) => {
         if (roomId) {
+          const isNotFirstInRoom = !!playersData;
+          if (isNotFirstInRoom) {
+            console.log('You joined', playersData);
+            setPlayersInfo(playersData);
+          }
           setMyUserInfo({roomId});
           setIsUserLoggedIn(true);
           setIsWaitingForPlayers(true);
-        } else {
-          //todo display message to the user
-          console.log('YOU ARE ALREADY PLAYING IN THIS ROOM');
         }
       });
     }
@@ -52,9 +59,15 @@ const ModalLogin =
     }
 
     function handlePlayGame() {
-      socket.emit('joinRoom', myUserInfo.userId, (roomId) => {
+      socket.emit('joinRoom', myUserInfo.userId, (roomId, playersData) => {
         if (roomId) {
+          const isNotFirstInRoom = !!playersData;
+          if (isNotFirstInRoom) {
+            console.log('You joined', playersData);
+            setPlayersInfo(playersData);
+          }
           setMyUserInfo({roomId});
+          setIsUserLoggedIn(true);
           setIsWaitingForPlayers(true);
         } else {
           //todo display message to the user

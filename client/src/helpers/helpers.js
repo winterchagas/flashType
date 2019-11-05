@@ -15,7 +15,7 @@ export function shouldCaptureCharacter(character) {
 }
 
 export let myUserInfo = {};
-export let playersInfo;
+export let playersInfo = {};
 export let playersIdNumbersMap = {};
 
 export function setMyUserInfo(userData) {
@@ -25,14 +25,13 @@ export function setMyUserInfo(userData) {
 }
 
 export function setPlayersInfo(playersData) {
-  let number = 1;
   for (let key of Object.keys(playersData)) {
+    const position = Object.keys(playersIdNumbersMap).length + 1;
     if (key !== myUserInfo.userId) {
-      playersIdNumbersMap[number] = key;
-      number++;
+      playersIdNumbersMap[position] = key;
+      playersInfo[key] = playersData[key];
     }
   }
-  playersInfo = playersData;
 }
 
 export function buildGoogleSignInPayload(currentUser) {
