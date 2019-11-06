@@ -21,23 +21,6 @@ const ModalLogin =
    }) => {
     const [isWaitingForPlayers, setIsWaitingForPlayers] = useState(false);
 
-    async function handlePlayAsGuest() {
-      const userInfoResponse = await fetch('/auth/guest');
-      setMyUserInfo(await userInfoResponse.json());
-      socket.emit('joinRoom', myUserInfo.userId, (roomId, playersData) => {
-        if (roomId) {
-          const isNotFirstInRoom = !!playersData;
-          if (isNotFirstInRoom) {
-            console.log('You joined', playersData);
-            setPlayersInfo(playersData);
-          }
-          setMyUserInfo({roomId});
-          setIsUserLoggedIn(true);
-          setIsWaitingForPlayers(true);
-        }
-      });
-    }
-
     async function handleGoogleLogin() {
       const currentUser = await googleAuth.signIn();
       const payload = buildGoogleSignInPayload(currentUser);
@@ -58,7 +41,9 @@ const ModalLogin =
       setIsUserLoggedIn(false);
     }
 
-    function handlePlayGame() {
+    async function handlePlayAsGuest() {
+      const userInfoResponse = await fetch('/play/guest');
+      setMyUserInfo(await userInfoResponse.json());
       socket.emit('joinRoom', myUserInfo.userId, (roomId, playersData) => {
         if (roomId) {
           const isNotFirstInRoom = !!playersData;
@@ -69,11 +54,35 @@ const ModalLogin =
           setMyUserInfo({roomId});
           setIsUserLoggedIn(true);
           setIsWaitingForPlayers(true);
-        } else {
-          //todo display message to the user
-          console.log('YOU ARE ALREADY PLAYING IN THIS ROOM');
         }
       });
+    }
+
+    async function handlePlayGame() {
+      const userAdded = await fetch('/play/google', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(myUserInfo)
+      });
+      if (userAdded) {
+        socket.emit('joinRoom', myUserInfo.userId, (roomId, playersData) => {
+          if (roomId) {
+            const isNotFirstInRoom = !!playersData;
+            if (isNotFirstInRoom) {
+              console.log('You joined', playersData);
+              setPlayersInfo(playersData);
+            }
+            setMyUserInfo({roomId});
+            setIsUserLoggedIn(true);
+            setIsWaitingForPlayers(true);
+          } else {
+            //todo display message to the user
+            console.log('YOU ARE ALREADY PLAYING IN THIS ROOM');
+          }
+        });
+      }
     }
 
     return (

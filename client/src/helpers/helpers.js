@@ -38,7 +38,7 @@ export function buildGoogleSignInPayload(currentUser) {
   const profile = currentUser.getBasicProfile();
   return {
     userId: currentUser.getId(),
-    name: profile.getName(),
+    userName: profile.getName(),
     email: profile.getEmail(),
     image: profile.getImageUrl(),
   }

@@ -2,7 +2,7 @@ const generateUuid = require('uuid/v1');
 // const passport = require('passport');
 // const cookieSession = require('cookie-session');
 // const keys = require('../config/keys').cookieKey;
-const { generateRandomName, buildDatabaseProfileObject } = require('../helpers/helpers');
+const { generateRandomName } = require('../helpers/helpers');
 const { findUser, createUser } = require('../services/firebase');
 
 function initializeRoutes(app, users) {
@@ -16,8 +16,6 @@ function initializeRoutes(app, users) {
 	// app.use(passport.initialize());
 
 	app.post('/auth/google', async (req, res) => {
-		console.log(' --------------   REQUEST BODY  ------------------');
-		console.log(req.body);
 		let { ok, user, findUserError } = await findUser(req.body.userId);
 		if (ok) {
 			if (user) {
@@ -55,7 +53,17 @@ function initializeRoutes(app, users) {
 				}));
 	});
 
-	app.get('/auth/guest', (req, res) => {
+	app.post('/play/google', (req, res) => {
+		const {userName, userId} = req.body;
+		const userAdded = users.addUser(userName, userId);
+		if (userAdded) {
+			res.status(200).send(true);
+		} else {
+			res.status(400).send(false);
+		}
+	});
+
+	app.get('/play/guest', (req, res) => {
 		const userName = generateRandomName();
 		const userId = generateUuid();
 		const userAdded = users.addUser(userName, userId);
