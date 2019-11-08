@@ -27,6 +27,12 @@
     margin-bottom: 70px;
   }
 
+  &__players-joined {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
   &__item {
     font-size: 17px;
     font-weight: 600;

@@ -29,7 +29,7 @@ if (process.env.ENVIRONMENT === 'production') {
     res.sendFile(__dirname + '/client/prodBuild/index.html');
   });
 } else {
-  require('./server/config/devSetup').devSetup(app);
+  require('./config/devSetup').devSetup(app);
 }
 
 

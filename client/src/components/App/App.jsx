@@ -1,6 +1,6 @@
 import React, {useState, Fragment, useEffect} from 'react';
 import io from 'socket.io-client';
-import keys from '../../../config/keys'
+import keys from '../../../../config/keys'
 import ModalLogin from "../ModalLogin/ModalLogin.jsx";
 import Game from "../Game/Game.jsx";
 import {setUserInfoFromGoogle} from '../../helpers/helpers';
@@ -48,8 +48,6 @@ const App = () => {
   useEffect(() => {
     initializeGoogleAuth(setGoogleAuth, setIsUserLoggedIn);
     startSocketStartGame(socket, setIsReadyToPlay);
-    startSocketPlayerJoined(socket);
-    startSocketPlayerLeft(socket);
   }, []);
 
   if (isReadyToPlay) {

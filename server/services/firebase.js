@@ -3,7 +3,7 @@ let firebase;
 function initializeDatabase() {
   firebase = require('firebase/app');
   require('firebase/database');
-  const {firebaseConfig} = require('../config/keys');
+  const {firebaseConfig} = require('../../config/keys');
   firebase.initializeApp(firebaseConfig);
 }
 

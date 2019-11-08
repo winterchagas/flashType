@@ -20,9 +20,12 @@ export function startSocketPlayerLeft(socket) {
 	});
 }
 
-export function startSocketPlayerJoined(socket) {
+export function startSocketPlayerJoined(socket, setPlayersJoined) {
 	socket.on('playerJoined', function (user) {
-		console.info('playerJoined', user);
+		console.info('playerJoined', user[Object.keys(user)[0]]);
 		setPlayersInfo(user);
+		const recentUsers = Object.keys(playersInfo)
+			.map(key => playersInfo[key]);
+		setPlayersJoined(recentUsers);
 	});
 }

@@ -1,11 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import {
   setPlayersInfo,
-  playersInfo,
   setMyUserInfo,
   myUserInfo,
   buildGoogleSignInPayload
 } from "../../helpers/helpers";
+import {
+  startSocketPlayerJoined,
+  startSocketPlayerLeft
+} from "../../helpers/sockets";
 import Header from '../Header/Header.jsx';
 import Spinner from '../Spinner/Spinner.jsx';
 import googleLogo from '../../../../assets/google-plus.svg'
@@ -20,6 +23,13 @@ const ModalLogin =
      googleAuth
    }) => {
     const [isWaitingForPlayers, setIsWaitingForPlayers] = useState(false);
+    const [playersJoined, setPlayersJoined] = useState([]);
+
+    useEffect(() => {
+      startSocketPlayerJoined(socket, setPlayersJoined);
+      startSocketPlayerLeft(socket);
+    }, []);
+
 
     async function handleGoogleLogin() {
       const currentUser = await googleAuth.signIn();
@@ -95,6 +105,9 @@ const ModalLogin =
                 <div>
                   <h3 className="login__box-title">Connecting to other players</h3>
                   <Spinner/>
+                  <div className="login__players-joined">
+                    {playersJoined.map(player => <div key={player}>{player}</div>)}
+                  </div>
                 </div>
                 :
                 <>
