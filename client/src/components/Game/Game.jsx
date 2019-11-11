@@ -1,7 +1,8 @@
 import React, {
   useState,
   Fragment,
-  useEffect
+  useEffect,
+  useRef
 } from 'react';
 import {
   shouldCaptureCharacter,
@@ -21,7 +22,8 @@ import {
 } from "../../helpers/typeEngine";
 import {
   startSocketRemoteType,
-  startSocketPlayerLeft
+  startSocketPlayerLeft,
+  startSocketGetMatchStats
 } from "../../helpers/sockets";
 import PhraseBox from "../PhraseBox/PhraseBox.jsx";
 import TypeBox from "../TypeBox/TypeBox.jsx";
@@ -36,12 +38,16 @@ const Game = ({socket, setIsUserLoggedIn}) => {
   const [gameStarted, setGameStarted] = useState(false);
   const [isEndOfSentence, setIsEndOfSentence] = useState(false);
 
+  const typeElement = useRef(null);
+
   useEffect(() => {
     startSocketRemoteType(socket, setPlayersCurrentProgress);
     startSocketPlayerLeft(socket);
+    startSocketGetMatchStats(socket);
   }, []);
 
   const handleTyping = (event) => {
+    event.preventDefault();
     if (!gameStarted) return;
     if (isEndOfSentence) return;
 
@@ -50,6 +56,7 @@ const Game = ({socket, setIsUserLoggedIn}) => {
         const shouldReRender = handleBackspaceType();
         if (shouldReRender) {
           setCurrentIndex(currentIndex - 1);
+          setPlayersCurrentProgress({...playersProgress});
         }
         return;
       }
@@ -73,6 +80,7 @@ const Game = ({socket, setIsUserLoggedIn}) => {
       <div
         className="phrase-box"
         tabIndex={0}
+        ref={typeElement}
         onKeyDown={handleTyping}>
         <PhraseBox
           phraseFirstPart={phraseFirstPart}
@@ -92,6 +100,7 @@ const Game = ({socket, setIsUserLoggedIn}) => {
         <TimerModal
           setGameStarted={setGameStarted}
           socket={socket}
+          typeElement={typeElement}
         />
       }
     </>

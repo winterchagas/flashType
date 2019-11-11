@@ -17,7 +17,9 @@ function buildRoomPlayersInfo(users, playersInRoomIds) {
 // }
 
 function generateRandomName() {
-  return `guest-${Date.now()}`
+  const date = String(Date.now());
+  const randomPart = date.substring(date.length, date.length - 4);
+  return `guest-${randomPart}`
 }
 
 function calculateWpm(match, playerId) {
@@ -28,8 +30,32 @@ function calculateWpm(match, playerId) {
 
 function calculateCps(match, playerId) {
   const {numberOfCharacters} = match;
-	const {elapsedTime} = match[playerId];
+  const {elapsedTime} = match[playerId];
   return numberOfCharacters / elapsedTime
+}
+
+function startGame(io, matches, availableRoomId, playersIds) {
+  setTimeout(() => {
+    const {sentence, numberOfWords, numberOfCharacters} = generateSentence();
+    // todo make bots
+    // https://namey.muffinlabs.com/name.json?count=4&with_surname=true&frequency=rare
+    matches.addMatch(availableRoomId, playersIds, numberOfWords, numberOfCharacters);
+    io.to(availableRoomId).emit('startGame', sentence);
+  }, 500);
+}
+
+function generateSentence() {
+  const sentence = 'The numbers in the table specifies the first browser version that fully supports the selector.';
+  // const sentence = 'aa';
+  return {
+    sentence,
+    numberOfWords: countWords(sentence),
+    numberOfCharacters: sentence.length
+  };
+}
+
+function countWords(sentence) {
+  return sentence.split(" ").length;
 }
 
 module.exports = {
@@ -37,5 +63,6 @@ module.exports = {
   // buildDatabaseProfileObject,
   generateRandomName,
   calculateWpm,
-  calculateCps
+  calculateCps,
+  startGame
 };

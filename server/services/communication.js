@@ -1,20 +1,21 @@
-const {buildRoomPlayersInfo} = require('../helpers/helpers');
+const {buildRoomPlayersInfo, startGame} = require('../helpers/helpers');
 
 function initializeCommunication(io, users, rooms, matches) {
   io.on('connection', function (socket) {
     const userInfo = {};
 
     socket.on('gameStarted', () => {
+      console.log('GAME STARTED');
       matches.startUserTimer(userInfo.roomId, userInfo.userId);
     });
 
     socket.on('correctType', (progress) => {
       const {roomId, userId} = userInfo;
       socket.to(roomId).emit('remoteType', userId, progress);
-      if (progress === 100) {
+      if (progress === '100') {
         matches.endUserTimer(roomId, userId);
         const userStats = matches.updateUserStats(roomId, userId);
-        socket.to(roomId).emit('getMatchStats', userStats);
+        io.to(roomId).emit('getMatchStats', userStats);
       }
     });
 
@@ -23,16 +24,9 @@ function initializeCommunication(io, users, rooms, matches) {
       const availableRoomId = rooms.searchAvailableRoom();
       if (availableRoomId) {
         socket.join(availableRoomId);
-        const {startGame, playersIds, failed} = rooms.joinRoom(availableRoomId, userId);
+        const {shouldStartGame, playersIds, failed} = rooms.joinRoom(availableRoomId, userId);
         if (failed) respondJoinedRoom(false);
-        if (startGame) {
-          setTimeout(() => {
-            // todo make bots
-            // https://namey.muffinlabs.com/name.json?count=4&with_surname=true&frequency=rare
-            matches.addMatch(availableRoomId, playersIds);
-            io.to(availableRoomId).emit('startGame');
-          }, 3000);
-        }
+        if (shouldStartGame) startGame(io, matches, availableRoomId, playersIds);
         socket.to(availableRoomId).emit('playerJoined', {
           [userId]: users.getUser(userId)
         });

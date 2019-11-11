@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 
 import './index.scss';
 
-const TimerModal = ({socket, setGameStarted}) => {
+const TimerModal = ({socket, setGameStarted, typeElement}) => {
   const [currentTime, setCurrentTime] = useState(3);
 
   function generateStartTimer() {
@@ -13,6 +13,7 @@ const TimerModal = ({socket, setGameStarted}) => {
       clearInterval(interval);
 	    socket.emit('gameStarted');
       setGameStarted(true);
+      typeElement.current.focus();
     }, 3999);
   }
 

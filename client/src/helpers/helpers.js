@@ -24,7 +24,7 @@ export function setMyUserInfo(userData) {
   })
 }
 
-export function setPlayersInfo(playersData) {
+export function addPlayers(playersData) {
   for (let key of Object.keys(playersData)) {
     const position = Object.keys(playersIdNumbersMap).length + 1;
     if (key !== myUserInfo.userId) {
@@ -32,6 +32,10 @@ export function setPlayersInfo(playersData) {
       playersInfo[key] = playersData[key];
     }
   }
+}
+
+export function deletePlayer(playerId) {
+  if (playersInfo[playerId]) delete playersInfo[playerId];
 }
 
 export function buildGoogleSignInPayload(currentUser) {
@@ -51,4 +55,9 @@ export function setUserInfoFromGoogle(googleAuth) {
     userName: googleUser.getBasicProfile().getName(),
   };
   setMyUserInfo(userInfo);
+}
+
+export function makePlayersInRoom() {
+  return Object.keys(playersInfo)
+    .map(key => playersInfo[key]);
 }

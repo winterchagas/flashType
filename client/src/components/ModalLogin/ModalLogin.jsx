@@ -1,9 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import {
-  setPlayersInfo,
+  addPlayers,
+  playersInfo,
   setMyUserInfo,
   myUserInfo,
-  buildGoogleSignInPayload
+  buildGoogleSignInPayload,
+  makePlayersInRoom
 } from "../../helpers/helpers";
 import {
   startSocketPlayerJoined,
@@ -23,11 +25,11 @@ const ModalLogin =
      googleAuth
    }) => {
     const [isWaitingForPlayers, setIsWaitingForPlayers] = useState(false);
-    const [playersJoined, setPlayersJoined] = useState([]);
+    const [playersInRoom, setPlayersInRoom] = useState([]);
 
     useEffect(() => {
-      startSocketPlayerJoined(socket, setPlayersJoined);
-      startSocketPlayerLeft(socket);
+      startSocketPlayerJoined(socket, setPlayersInRoom);
+      startSocketPlayerLeft(socket, setPlayersInRoom);
     }, []);
 
 
@@ -59,7 +61,9 @@ const ModalLogin =
           const isNotFirstInRoom = !!playersData;
           if (isNotFirstInRoom) {
             console.log('You joined', playersData);
-            setPlayersInfo(playersData);
+            addPlayers(playersData);
+            const recentUsers = makePlayersInRoom();
+            setPlayersInRoom(recentUsers);
           }
           setMyUserInfo({roomId});
           setIsUserLoggedIn(true);
@@ -82,7 +86,9 @@ const ModalLogin =
             const isNotFirstInRoom = !!playersData;
             if (isNotFirstInRoom) {
               console.log('You joined', playersData);
-              setPlayersInfo(playersData);
+              addPlayers(playersData);
+              const recentUsers = makePlayersInRoom();
+              setPlayersInRoom(recentUsers);
             }
             setMyUserInfo({roomId});
             setIsUserLoggedIn(true);
@@ -106,7 +112,18 @@ const ModalLogin =
                   <h3 className="login__box-title">Connecting to other players</h3>
                   <Spinner/>
                   <div className="login__players-joined">
-                    {playersJoined.map(player => <div key={player}>{player}</div>)}
+                    {
+                      playersInRoom
+                        .map(player =>
+                          <div key={player} className="login__player">
+                            <div>
+                              {player}
+                            </div>
+                            <div>
+                              Joined
+                            </div>
+                          </div>)
+                    }
                   </div>
                 </div>
                 :

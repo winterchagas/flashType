@@ -16,19 +16,19 @@ class Rooms {
   }
 
   joinRoom(roomId, playerId) {
-    let startGame = false;
+    let shouldStartGame = false;
     const room = this.rooms[roomId];
     const isPLayerInRoom = room.players.some(id => playerId === id);
     if (isPLayerInRoom) {
       return {failed: true};
     }
     room.players.push(playerId);
-    if (room.players.length > 2) {
+    if (room.players.length > 1) {
       room.full = true;
-      startGame = true;
+      shouldStartGame = true;
     }
     console.log('PLAYER', playerId, 'JOINED', roomId);
-    return {startGame, playersIds: room.players};
+    return {shouldStartGame, playersIds: room.players};
   }
 
   leaveRoom(roomId, playerId) {

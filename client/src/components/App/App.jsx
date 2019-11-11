@@ -6,8 +6,6 @@ import Game from "../Game/Game.jsx";
 import {setUserInfoFromGoogle} from '../../helpers/helpers';
 import {
   startSocketStartGame,
-  startSocketPlayerJoined,
-  startSocketPlayerLeft
 } from "../../helpers/sockets";
 
 import './index.scss';

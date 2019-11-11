@@ -28,9 +28,16 @@
   }
 
   &__players-joined {
+    color: #52a5d3;
     display: flex;
     justify-content: space-around;
     align-items: center;
+    flex-wrap: wrap;
+  }
+
+  &__player {
+    width: 50px;
+    border: 1px solid white;
   }
 
   &__item {

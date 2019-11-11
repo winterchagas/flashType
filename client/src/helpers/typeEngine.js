@@ -1,13 +1,18 @@
 import {myUserInfo} from "./helpers";
 
-// const fullSentence = 'The numbers in the table specifies the first browser version that fully supports the selector.';
-const fullSentence = 'aa';
-const sentenceLength = fullSentence.length;
+let fullSentence;
+let sentenceLength;
 const typedPhrase = [];
 export const phraseFirstPart = [];
 export const phraseErrorPart = [];
-export const phraseSecondPart = [...fullSentence];
+export let phraseSecondPart;
 export const playersProgress = {};
+
+export function setSentence(newSentence) {
+  fullSentence = newSentence;
+  sentenceLength = newSentence.length;
+  phraseSecondPart = [...newSentence];
+}
 
 export function handleCorrectType(
   socket,
@@ -38,6 +43,7 @@ export function handleBackspaceType() {
       phraseSecondPart.unshift(removedCharacter);
     }
     typedPhrase.pop();
+    playersProgress[myUserInfo.userId] = calculatePlayer1Progress();
     return true;
   }
   return false;

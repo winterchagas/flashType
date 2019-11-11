@@ -1,15 +1,20 @@
-const calculateWpm = require('../helpers/helpers');
-const calculateCps = require('../helpers/helpers');
+const {calculateWpm} = require('../helpers/helpers');
+const {calculateCps} = require('../helpers/helpers');
 
 class Matches {
   constructor() {
     this.matches = {};
   }
 
-  addMatch(matchId, playersIds) {
+  addMatch(
+    matchId,
+    playersIds,
+    numberOfWords,
+    numberOfCharacters
+  ) {
     const match = this.matches[matchId] = {
-      numberOfWords: null,
-      numberOfCharacters: null,
+      numberOfWords,
+      numberOfCharacters,
     };
     playersIds.forEach((id) => {
       match[id] = {
@@ -17,7 +22,7 @@ class Matches {
         cps: null,
         startTime: null,
         endTime: null,
-	      elapsedTime: null,
+        elapsedTime: null,
       }
     });
     console.log('MATCH ADDED', matchId);
@@ -29,7 +34,7 @@ class Matches {
   }
 
   endUserTimer(matchId, playerId) {
-  	const match = this.matches[matchId][playerId];
+    const match = this.matches[matchId][playerId];
     match.endTime = Date.now();
     match.elapsedTime = (match.endTime - match.startTime) / 1000;
   }
