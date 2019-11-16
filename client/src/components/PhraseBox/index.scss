@@ -1,18 +1,24 @@
+@import '../../styles/variables';
+
 .phrase-box {
   &__break {
-    border: 1px solid blue;
+    //border: 1px solid blue;
     margin-bottom: 30px;
+    font-size: 25px;
   }
 
   &__first-part {
-    color: blue;
+    color: $main-yellow;
+    text-shadow: 1px 1px 3px $main-yellow;
   }
 
   &__error-part {
-    color: darkred;
+    color: $main-red;
+    text-shadow: 1px 1px 3px $main-red;
   }
 
   &__last-part {
-    color: black;
+    color: #555555;
+    text-align: center;
   }
 }

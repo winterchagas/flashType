@@ -1,8 +1,64 @@
-.phrase-box {
-  &__progress-bar {
-    border: 1px solid blue;
+@import '../../styles/variables';
+
+.progress {
+  &__container {
+    //border: 1px solid blue;
+    display: flex;
+    flex-wrap: wrap;
     margin-bottom: 30px;
     padding: 20px;
     width: 90%;
+  }
+
+  &__my-progress {
+    border: 1px solid red;
+  }
+
+  &__img {
+    width: 100px;
+    height: 100px;
+  }
+
+  &__others {
+    border: 1px solid red;
+  }
+
+  &__each-player {
+    display: flex;
+    justify-content: center;
+    margin: 25px 15px;
+
+    color: white;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 2px;
+    font-size: 14px;
+  }
+
+  &__player-name {
+    width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__bar {
+    background: #333;
+    border-radius: 13px;
+    height: 9px;
+    width: 300px;
+    margin: 4px 15px 0 15px;
+  }
+
+  &__inner-bar {
+    content: '';
+    display: block;
+    background: $main-blue;
+    height: 100%;
+    border-radius: 9px;
+    box-shadow: 0px 0px 8px $main-blue;
+  }
+
+  &__player-percentage {
+    width: 40px;
   }
 }

@@ -1,10 +1,18 @@
-.phrase-box {
-  height: 100vh;
-  font-size: 40px;
-  font-weight: bold;
+.game {
+  &__container {
+    height: 100vh;
+    font-size: 40px;
+    font-weight: bold;
+    background-color: #2d2d2d;
+    background-image: linear-gradient(40deg, rgb(53, 53, 53), rgb(25, 25, 25));
+  }
 
-  &__full {
-    border: 1px solid black;
-    margin-bottom: 30px;
+  &__center-box {
+    margin: 60px auto;
+    background-color: #1B1A1A;
+    max-width: 800px;
+    border-radius: 8px;
+    padding: 35px 45px;
+    box-shadow: 2px 3px 6px #1c1c1c;
   }
 }

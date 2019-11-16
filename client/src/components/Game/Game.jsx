@@ -25,6 +25,7 @@ import {
   startSocketPlayerLeft,
   startSocketGetMatchStats
 } from "../../helpers/sockets";
+import Header from "../Header/Header.jsx";
 import PhraseBox from "../PhraseBox/PhraseBox.jsx";
 import TypeBox from "../TypeBox/TypeBox.jsx";
 import ProgressBars from "../ProgressBars/ProgressBars.jsx";
@@ -78,22 +79,25 @@ const Game = ({socket, setIsUserLoggedIn}) => {
   return (
     <>
       <div
-        className="phrase-box"
+        className="game__container"
         tabIndex={0}
         ref={typeElement}
         onKeyDown={handleTyping}>
-        <PhraseBox
-          phraseFirstPart={phraseFirstPart}
-          phraseErrorPart={phraseErrorPart}
-          phraseSecondPart={phraseSecondPart}
-        />
-        <ProgressBars
-          playersCurrentProgress={playersCurrentProgress}
-        />
-        {/*<TypeBox*/}
-        {/*  typedPhrase={typedPhrase}*/}
-        {/*  phraseSecondPart={phraseSecondPart}*/}
-        {/*/>*/}
+        <Header/>
+        <div className="game__center-box">
+          <PhraseBox
+            phraseFirstPart={phraseFirstPart}
+            phraseErrorPart={phraseErrorPart}
+            phraseSecondPart={phraseSecondPart}
+          />
+          <ProgressBars
+            playersCurrentProgress={playersCurrentProgress}
+          />
+          {/*<TypeBox*/}
+          {/*  typedPhrase={typedPhrase}*/}
+          {/*  phraseSecondPart={phraseSecondPart}*/}
+          {/*/>*/}
+        </div>
       </div>
       {
         !gameStarted &&
