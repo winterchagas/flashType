@@ -4,10 +4,10 @@
   &__container {
     //border: 1px solid blue;
     display: flex;
-    flex-wrap: wrap;
+    //flex-wrap: wrap;
+    justify-content: space-around;
     margin-bottom: 30px;
     padding: 20px;
-    width: 90%;
   }
 
   &__my-progress {
@@ -15,8 +15,8 @@
   }
 
   &__img {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
   }
 
   &__others {
