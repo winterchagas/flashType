@@ -1,6 +1,8 @@
 import React from 'react';
 import {myUserInfo, playersIdNumbersMap, playersInfo} from '../../helpers/helpers';
-import percentage from "../../../../assets/percentage.png";
+import CircleProgress from "./CircleProgress/CircleProgress.jsx";
+import percentage from '../../../../assets/percentage.png';
+
 import './index.scss';
 
 function ProgressBars({playersCurrentProgress}) {
@@ -11,15 +13,16 @@ function ProgressBars({playersCurrentProgress}) {
   function getPercentage(playerId) {
     return `${playersCurrentProgress[playersIdNumbersMap[playerId]] || '0'}%`;
   }
-  {/*  percent={playersCurrentProgress[myUserInfo.userId]}*/}
+
   return (
     <div className="progress__container">
-      <div className="progress__my">
-        <img
-          className="progress__img"
-          src={percentage}
-          alt="main-logo"/>
-      </div>
+      {/*<div className="progress__my">*/}
+      {/*  <img*/}
+      {/*    className="progress__img"*/}
+      {/*    src={percentage}*/}
+      {/*    alt="main-logo"/>*/}
+      {/*</div>*/}
+      <CircleProgress playersCurrentProgress={playersCurrentProgress}/>
       <div className="progress__others">
         <div className="progress__each-player">
           <div className="progress__player-name">
