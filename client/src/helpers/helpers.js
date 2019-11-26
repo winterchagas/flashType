@@ -53,6 +53,7 @@ export function setUserInfoFromGoogle(googleAuth) {
   const userInfo = {
     userId: googleUser.getId(),
     userName: googleUser.getBasicProfile().getName(),
+    googleUser: true,
   };
   setMyUserInfo(userInfo);
 }
@@ -60,4 +61,8 @@ export function setUserInfoFromGoogle(googleAuth) {
 export function makePlayersInRoom() {
   return Object.keys(playersInfo)
     .map(key => playersInfo[key]);
+}
+
+export function noOp() {
+  return null;
 }

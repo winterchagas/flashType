@@ -1,11 +1,56 @@
+@import '../../styles/variables';
+
 .main-header {
   background-color: #212121;
-  padding: 1.8rem;
-  box-shadow: 0px 2px 2px #1B1A1A;
+  padding: 30px 25px 20px 25px;
+  box-shadow: 0 2px 2px #1B1A1A;
+  display: flex;
+  justify-content: space-between;
+
+  &__rankings {
+    cursor: pointer;
+    border: 2px solid white;
+    color: white;
+    height: 19px;
+    padding: 5px;
+    border-radius: 10px;
+  }
+
+  &__rankings:hover {
+    box-shadow: 0 0 25px -5px white;
+  }
 
   &__main-logo {
     width: 300px;
     display: block;
     margin: auto;
+  }
+
+  &__profile-image-box {
+    width: 60px;
+    height: 60px;
+    margin-top: -15px;
+  }
+
+  &__profile-image {
+    cursor: pointer;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: block;
+  }
+
+  &__profile-image:hover {
+    box-shadow: 0 0 25px -5px white;
+  }
+
+  &__logout-button {
+    padding-left: 3px;
+    color: white;
+    font-size: 17px;
+    cursor: pointer;
+    border: 2px solid white;
+    border-radius: 10px;
+    margin-top: 15px;
   }
 }

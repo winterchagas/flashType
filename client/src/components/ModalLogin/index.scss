@@ -6,6 +6,10 @@
     background-image: linear-gradient(40deg, rgb(53, 53, 53), rgb(25, 25, 25));
   }
 
+  &__find-match-box {
+    margin-top: 25%;
+  }
+
   &__middle-box {
     position: absolute;
     top: 50%;

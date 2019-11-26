@@ -62,12 +62,24 @@ function getModule(isProduction) {
         ]
       },
       {
-        test: /\.(png|svg|jpg|gif)$/,
+        test: /\.(png|svg|jpg|jpeg|gif|jfif)$/,
         use: [
           {
             loader: "file-loader",
             options: {
               name: "[path][name].[hash].[ext]"
+            }
+          }
+        ]
+      },
+      {
+        test: /\.ttf$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+              outputPath: 'fonts/'
             }
           }
         ]

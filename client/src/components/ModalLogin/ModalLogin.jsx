@@ -47,15 +47,9 @@ const ModalLogin =
       // console.log('ID TOKEN', currentUser.getAuthResponse().id_token);
     }
 
-    async function handleGoogleLogout() {
-      await googleAuth.signOut();
-      console.log('LOGGED OUT');
-      setIsUserLoggedIn(false);
-    }
-
     async function handlePlayAsGuest() {
       const userInfoResponse = await fetch('/play/guest');
-      setMyUserInfo(await userInfoResponse.json());
+      setMyUserInfo(await userInfoResponse.json(), true);
       socket.emit('joinRoom', myUserInfo.userId, (roomId, playersData) => {
         if (roomId) {
           const isNotFirstInRoom = !!playersData;
@@ -103,7 +97,11 @@ const ModalLogin =
 
     return (
       <div className="login__container">
-        <Header/>
+        <Header
+          googleAuth={googleAuth}
+          isUserLoggedIn={isUserLoggedIn}
+          setIsUserLoggedIn={setIsUserLoggedIn}
+        />
         <div className="login__middle-box">
           {
             isUserLoggedIn ?
@@ -128,20 +126,21 @@ const ModalLogin =
                 </div>
                 :
                 <>
-                  <div>
-                    <button onClick={handlePlayGame}>
-                      READY TO PLAY!
-                    </button>
-                  </div>
-                  <div>
-                    <button onClick={handleGoogleLogout}>
-                      LOGOUT
+                  <h3 className="login__box-title">Are you ready?</h3>
+                  <div className="login__find-match-box">
+                    <button
+                      className="login__item login__button login__button--guest"
+                      onClick={handlePlayGame}
+                    >
+                      Find oponents
                     </button>
                   </div>
                 </>
               :
               <>
-                <h3 className="login__box-title">Real-Time Typing Competition</h3>
+                <h3 className="login__box-title">
+                  Real-Time Typing Competition
+                </h3>
                 <div>
                   <button
                     className="login__item login__button login__button--google"

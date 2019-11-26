@@ -33,7 +33,7 @@ import TimerModal from "../TimerModal/TimerModal.jsx";
 
 import './index.scss';
 
-const Game = ({socket, setIsUserLoggedIn}) => {
+const Game = ({socket, isUserLoggedIn, setIsUserLoggedIn, googleAuth}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [playersCurrentProgress, setPlayersCurrentProgress] = useState({});
   const [gameStarted, setGameStarted] = useState(false);
@@ -83,7 +83,11 @@ const Game = ({socket, setIsUserLoggedIn}) => {
         tabIndex={0}
         ref={typeElement}
         onKeyDown={handleTyping}>
-        <Header/>
+        <Header
+          googleAuth={googleAuth}
+          isUserLoggedIn={isUserLoggedIn}
+          setIsUserLoggedIn={setIsUserLoggedIn}
+        />
         <div className="game__center-box">
           <PhraseBox
             phraseFirstPart={phraseFirstPart}

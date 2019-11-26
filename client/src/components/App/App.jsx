@@ -24,14 +24,14 @@ function initializeGoogleAuth(setGoogleAuth, setIsUserLoggedIn) {
           setGoogleAuth(googleAuth);
           const isLoggedIn = googleAuth.isSignedIn.get();
           if (isLoggedIn) {
-            setIsUserLoggedIn(true);
             setUserInfoFromGoogle(googleAuth);
+            setIsUserLoggedIn(true);
           }
 
           googleAuth.isSignedIn.listen(() => {
             console.log('LINSTEN LOG IN', googleAuth.isSignedIn.get());
-            setIsUserLoggedIn(googleAuth.isSignedIn.get());
             setUserInfoFromGoogle(googleAuth);
+            setIsUserLoggedIn(googleAuth.isSignedIn.get());
           })
         }
       );
@@ -49,7 +49,12 @@ const App = () => {
   }, []);
 
   if (isReadyToPlay) {
-    view = <Game socket={socket} setIsUserLoggedIn={setIsUserLoggedIn}/>
+    view = <Game
+      socket={socket}
+      isUserLoggedIn={isUserLoggedIn}
+      setIsUserLoggedIn={setIsUserLoggedIn}
+      googleAuth={googleAuth}
+    />
   } else {
     view = <ModalLogin
       socket={socket}
