@@ -3,3 +3,6 @@ client/node_modules/
 .idea
 /prodBuild
 keys.js
+**.DS_Store
+client/.DS_Store
+client/src/.DS_Store
