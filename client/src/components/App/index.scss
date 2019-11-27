@@ -1,15 +1,15 @@
-@import '../../../../assets/SourceCodePro-Regular.ttf';
+//@import '../../../../assets/SourceCodePro-Regular.ttf';
 
 @font-face {
   font-family: 'Source Code Pro';
-  src: url('../../../../assets/SourceCodePro-Regular.ttf') format('ttf');
+  src: url('../../../../assets/SourceCodePro-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Orbitron';
-  src: url('../../../../assets/Orbitron-Regular.ttf') format('ttf');
+  src: url('../../../../assets/Orbitron-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -18,6 +18,6 @@ body, html {
   margin: 0;
   padding: 0;
   position: relative;
-  font-family: 'Source Code Pro', 'Orbitron', "Times New Roman", monospace;
+  font-family: 'Source Code Pro', monospace;
   font-size: 20px;
 }

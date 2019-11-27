@@ -20,7 +20,7 @@ function getEntry(isProduction) {
 
 function getOutput(isProduction) {
   return {
-    // publicPath: './',
+    publicPath: './',
     filename: `[name]-bundle.js`,
     path: isProduction ? PATHS.prod : PATHS.dev
   }
@@ -67,7 +67,8 @@ function getModule(isProduction) {
           {
             loader: "file-loader",
             options: {
-              name: "[path][name].[hash].[ext]"
+              name: "[path][name].[hash].[ext]",
+              outputPath: 'images/'
             }
           }
         ]

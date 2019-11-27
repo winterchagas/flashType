@@ -8,11 +8,12 @@
   justify-content: space-between;
 
   &__rankings {
+    font-size: 18px;
     cursor: pointer;
     border: 2px solid white;
     color: white;
-    height: 19px;
-    padding: 5px;
+    height: 23px;
+    padding: 3px 7px;
     border-radius: 10px;
   }
 
