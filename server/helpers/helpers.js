@@ -54,6 +54,7 @@ function startGame(io, matches, availableRoomId, playersIds) {
 function generateSentence() {
   const sentence = 'The numbers in the table specifies the first browser version that fully supports the selector.';
   // const sentence = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
+  // const sentence = 'aaaaaaaaaaa';
   return {
     sentence,
     numberOfWords: countWords(sentence),

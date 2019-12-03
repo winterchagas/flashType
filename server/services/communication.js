@@ -1,4 +1,5 @@
 const {buildRoomPlayersInfo, startGame} = require('../helpers/helpers');
+const {getStats} = require('./firebase');
 
 function initializeCommunication(io, users, rooms, matches) {
   io.on('connection', function (socket) {

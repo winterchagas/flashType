@@ -19,6 +19,8 @@ require('./server/services/firebase')
 // require('./server/services/authentication');
 require('./server/routes/authRoutes')
   .initializeRoutes(app, users);
+require('./server/routes/statsRoutes')
+  .initializeRoutes(app);
 require('./server/services/communication')
   .initializeCommunication(io, users, rooms, matches);
 

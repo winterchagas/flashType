@@ -27,6 +27,7 @@ import {
 } from "../../helpers/sockets";
 import Header from "../Header/Header.jsx";
 import PhraseBox from "../PhraseBox/PhraseBox.jsx";
+import Rankings from "../Rankings/Rankings.jsx";
 import TypeBox from "../TypeBox/TypeBox.jsx";
 import ProgressBars from "../ProgressBars/ProgressBars.jsx";
 import TimerModal from "../TimerModal/TimerModal.jsx";
@@ -38,6 +39,8 @@ const Game = ({socket, isUserLoggedIn, setIsUserLoggedIn, googleAuth}) => {
   const [playersCurrentProgress, setPlayersCurrentProgress] = useState({});
   const [gameStarted, setGameStarted] = useState(false);
   const [isEndOfSentence, setIsEndOfSentence] = useState(false);
+  const [displayRankings, setDisplayRankings] = useState(false);
+
 
   const typeElement = useRef(null);
 
@@ -87,6 +90,7 @@ const Game = ({socket, isUserLoggedIn, setIsUserLoggedIn, googleAuth}) => {
           googleAuth={googleAuth}
           isUserLoggedIn={isUserLoggedIn}
           setIsUserLoggedIn={setIsUserLoggedIn}
+          setDisplayRankings={setDisplayRankings}
         />
         <div className="game__center-box">
           <PhraseBox
@@ -110,6 +114,10 @@ const Game = ({socket, isUserLoggedIn, setIsUserLoggedIn, googleAuth}) => {
           socket={socket}
           typeElement={typeElement}
         />
+      }
+      {
+        !gameStarted && displayRankings &&
+        <Rankings setDisplayRankings={setDisplayRankings}/>
       }
     </>
   );

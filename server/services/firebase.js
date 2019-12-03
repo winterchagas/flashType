@@ -39,6 +39,25 @@ async function findUser(uuid) {
   }
 }
 
+async function getStats() {
+  try {
+    const snapshot = await firebase.database()
+      .ref(`stats`)
+      .once('value');
+    console.log('GET ALL STATS', snapshot.val());
+    return {
+      ok: true,
+      stats: snapshot.val()
+    }
+  } catch (error) {
+    console.log('ERROR GETTING STATS', error);
+    return {
+      ok: false,
+      statsError: error
+    }
+  }
+}
+
 function updateUser() {
 }
 
@@ -65,5 +84,6 @@ module.exports = {
   initializeDatabase,
   findUser,
   updateUser,
-  createUser
+  createUser,
+  getStats
 };

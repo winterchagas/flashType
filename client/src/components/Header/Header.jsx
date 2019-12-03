@@ -4,7 +4,7 @@ import {myUserInfo, noOp} from "../../helpers/helpers";
 import {getRandomImage} from '../../helpers/images';
 import './index.scss';
 
-const Header = ({googleAuth, setIsUserLoggedIn, isUserLoggedIn}) => {
+const Header = ({googleAuth, setIsUserLoggedIn, isUserLoggedIn, setDisplayRankings}) => {
   const [displayLogoutButton, setDisplayLogoutButton] = useState(false);
 
   async function handleGoogleLogout() {
@@ -37,7 +37,9 @@ const Header = ({googleAuth, setIsUserLoggedIn, isUserLoggedIn}) => {
 
   return (
     <div className="main-header">
-      <div className="main-header__rankings">
+      <div
+        onClick={() => setDisplayRankings(true)}
+        className="main-header__rankings">
         Rankings
       </div>
       <div className="main-header__main-logo-box">

@@ -13,6 +13,7 @@ import {
 } from "../../helpers/sockets";
 import Header from '../Header/Header.jsx';
 import Spinner from '../Spinner/Spinner.jsx';
+import Rankings from "../Rankings/Rankings.jsx";
 import googleLogo from '../../../../assets/google-plus.svg'
 
 import './index.scss';
@@ -26,6 +27,7 @@ const ModalLogin =
    }) => {
     const [isWaitingForPlayers, setIsWaitingForPlayers] = useState(false);
     const [playersInRoom, setPlayersInRoom] = useState([]);
+    const [displayRankings, setDisplayRankings] = useState(false);
 
     useEffect(() => {
       startSocketPlayerJoined(socket, setPlayersInRoom);
@@ -101,6 +103,9 @@ const ModalLogin =
           googleAuth={googleAuth}
           isUserLoggedIn={isUserLoggedIn}
           setIsUserLoggedIn={setIsUserLoggedIn}
+          setDisplayRankings={setDisplayRankings}
+          displayRankings={displayRankings}
+          isWaitingForPlayers={isWaitingForPlayers}
         />
         <div className="login__middle-box">
           {
@@ -168,6 +173,10 @@ const ModalLogin =
               </>
           }
         </div>
+        {
+          !isWaitingForPlayers && displayRankings &&
+          <Rankings setDisplayRankings={setDisplayRankings}/>
+        }
       </div>
     );
   };
