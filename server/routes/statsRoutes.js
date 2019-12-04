@@ -2,7 +2,7 @@ const {getStats} = require('../services/firebase');
 
 function initializeRoutes(app) {
   app.get('/getStats', async (req, res) => {
-    let {ok, stats, statsError} = await getStats();
+    const {ok, stats, statsError} = await getStats();
     if (ok) {
       res.status(200)
         .send(JSON.stringify({

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import trophyIcon from '../../../../assets/trophy.png';
-
+import Spinner from '../Spinner/Spinner.jsx';
 import './index.scss';
 
 const Rankings = ({setDisplayRankings}) => {
@@ -29,7 +29,7 @@ const Rankings = ({setDisplayRankings}) => {
       {
         rankings.length > 0 ?
           rankings.map((ranking, index) => {
-            return <div className="ranking__table-row">
+            return <div key={ranking.name} className="ranking__table-row">
               <div>
                 {
                   index === 0 ?
@@ -46,7 +46,7 @@ const Rankings = ({setDisplayRankings}) => {
               </div>
             </div>
           }) :
-          `LOADING`
+          <Spinner/>
       }
     </div>
   </div>

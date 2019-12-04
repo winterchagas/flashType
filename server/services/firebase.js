@@ -45,6 +45,7 @@ async function getStats() {
       .ref(`stats`)
       .once('value');
     console.log('GET ALL STATS', snapshot.val());
+    console.log('type', Array.isArray(snapshot.val()));
     return {
       ok: true,
       stats: snapshot.val()
@@ -55,6 +56,17 @@ async function getStats() {
       ok: false,
       statsError: error
     }
+  }
+}
+
+async function updateStats(newStats) {
+  try {
+    await firebase.database()
+      .ref(`stats`)
+      .set(newStats);
+    console.log('STATS UPDATED', newStats);
+  } catch (updateStatsError) {
+    console.log('ERROR UPDATING STATS', updateStatsError);
   }
 }
 
@@ -85,5 +97,6 @@ module.exports = {
   findUser,
   updateUser,
   createUser,
-  getStats
+  getStats,
+  updateStats
 };

@@ -1,5 +1,5 @@
 const {buildRoomPlayersInfo, startGame} = require('../helpers/helpers');
-const {getStats} = require('./firebase');
+const {checkRecordBroken} = require('../helpers/helpers');
 
 function initializeCommunication(io, users, rooms, matches) {
   io.on('connection', function (socket) {
@@ -16,7 +16,9 @@ function initializeCommunication(io, users, rooms, matches) {
       if (progress === '100') {
         matches.endUserTimer(roomId, userId);
         const userStats = matches.updateUserStats(roomId, userId);
-        io.to(roomId).emit('getMatchStats', userStats);
+        const userName = users.getUser(userInfo.userId);
+        io.to(roomId).emit('getMatchStats', userStats, userName);
+        checkRecordBroken(userStats, userName);
       }
     });
 

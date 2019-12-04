@@ -1,3 +1,5 @@
+const {getStats, updateStats} = require('../services/firebase');
+
 function buildRoomPlayersInfo(users, playersInRoomIds) {
   const roomPlayers = {};
   playersInRoomIds.forEach((id) => {
@@ -52,9 +54,9 @@ function startGame(io, matches, availableRoomId, playersIds) {
 }
 
 function generateSentence() {
-  const sentence = 'The numbers in the table specifies the first browser version that fully supports the selector.';
+  // const sentence = 'The numbers in the table specifies the first browser version that fully supports the selector.';
   // const sentence = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
-  // const sentence = 'aaaaaaaaaaa';
+  const sentence = 'aaaaaaaaaaa';
   return {
     sentence,
     numberOfWords: countWords(sentence),
@@ -66,6 +68,39 @@ function countWords(sentence) {
   return sentence.split(" ").length;
 }
 
+async function checkRecordBroken(userStats, userName) {
+  const {ok, stats, statsError} = await getStats();
+  let insertIndex;
+  if (ok) {
+    for (let i = 0; i < stats.length; i++) {
+      if (userStats.cps > stats[i].cps) {
+        insertIndex = i;
+        console.log('BIGGER THAN', stats[i].name);
+        break;
+      }
+    }
+    if (!!insertIndex) {
+      let arrayTop = [];
+      let arrayBottom = [];
+      if (insertIndex === 0) {
+        arrayBottom = stats.slice(0, 9);
+      } else if (insertIndex === 9) {
+        arrayTop = stats.slice(0, 9);
+      } else {
+        arrayTop = stats.slice(0, insertIndex);
+        arrayBottom = stats.slice(insertIndex, 9);
+      }
+      const builtNewStats = [
+        ...arrayTop,
+        {name: userName, cps: userStats.cps, wpm: userStats.wpm},
+        ...arrayBottom
+      ];
+      console.log('NEW STATS', builtNewStats);
+      updateStats(builtNewStats);
+    }
+  }
+}
+
 module.exports = {
   buildRoomPlayersInfo,
   // buildDatabaseProfileObject,
@@ -73,7 +108,8 @@ module.exports = {
   getRandomInt,
   calculateWpm,
   calculateCps,
-  startGame
+  startGame,
+  checkRecordBroken
 };
 
 // const a = {
