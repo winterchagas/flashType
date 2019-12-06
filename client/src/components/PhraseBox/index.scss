@@ -1,10 +1,17 @@
 @import '../../styles/variables';
 
 .phrase-box {
+  &__container {
+    //border: 1px solid green;
+    height: 66px;
+    overflow: hidden;
+  }
+
   &__break {
     //border: 1px solid blue;
     margin-bottom: 30px;
     font-size: 25px;
+    transition-duration: .2s;
   }
 
   &__first-part {
@@ -15,6 +22,60 @@
   &__error-part {
     color: $main-red;
     text-shadow: 1px 1px 3px $main-red;
+  }
+
+  &__cursor {
+    color: white;
+    height: 30px;
+    width: 1px;
+    border-left: 2px solid white;
+    animation: invisible 1s 0s infinite;
+  }
+
+  @keyframes invisible {
+    0% {
+      opacity: 0
+    }
+
+    10% {
+      opacity: 0.2
+    }
+
+    20% {
+      opacity: 0.4
+    }
+
+    30% {
+      opacity: 0.6
+    }
+
+    40% {
+      opacity: 0.8
+    }
+
+    50% {
+      opacity: 1
+    }
+
+    60% {
+      opacity: 1
+    }
+
+    70% {
+      opacity: 0.8
+    }
+
+    80% {
+      opacity: 0.6
+    }
+
+    90% {
+      opacity: 0.4
+    }
+
+    100% {
+      opacity: 0.2
+    }
   }
 
   &__last-part {

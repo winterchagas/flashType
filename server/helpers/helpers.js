@@ -1,8 +1,8 @@
-const {getStats, updateStats} = require('../services/firebase');
+const { getStats, updateStats } = require("../services/firebase");
 
 function buildRoomPlayersInfo(users, playersInRoomIds) {
   const roomPlayers = {};
-  playersInRoomIds.forEach((id) => {
+  playersInRoomIds.forEach(id => {
     roomPlayers[id] = users.getUser(id);
   });
   return roomPlayers;
@@ -18,7 +18,7 @@ function buildRoomPlayersInfo(users, playersInRoomIds) {
 //   }
 // }
 
-const guestNames = ['Llama', 'Dog', 'Sloth', 'Monkey'];
+const guestNames = ["Llama", "Dog", "Sloth", "Monkey"];
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
@@ -28,35 +28,41 @@ function generateRandomName() {
   const randomName = guestNames[getRandomInt(4)];
   const date = String(Date.now());
   const randomPart = date.substring(date.length, date.length - 4);
-  return `${randomName}-${randomPart}`
+  return `${randomName}-${randomPart}`;
 }
 
 function calculateWpm(match, playerId) {
-  const {numberOfWords} = match;
-  const {elapsedTime} = match[playerId];
-  return numberOfWords / (elapsedTime / 60)
+  const { numberOfWords } = match;
+  const { elapsedTime } = match[playerId];
+  return numberOfWords / (elapsedTime / 60);
 }
 
 function calculateCps(match, playerId) {
-  const {numberOfCharacters} = match;
-  const {elapsedTime} = match[playerId];
-  return numberOfCharacters / elapsedTime
+  const { numberOfCharacters } = match;
+  const { elapsedTime } = match[playerId];
+  return numberOfCharacters / elapsedTime;
 }
 
 function startGame(io, matches, availableRoomId, playersIds) {
   setTimeout(() => {
-    const {sentence, numberOfWords, numberOfCharacters} = generateSentence();
+    const { sentence, numberOfWords, numberOfCharacters } = generateSentence();
     // todo make bots
     // https://namey.muffinlabs.com/name.json?count=4&with_surname=true&frequency=rare
-    matches.addMatch(availableRoomId, playersIds, numberOfWords, numberOfCharacters);
-    io.to(availableRoomId).emit('startGame', sentence);
+    matches.addMatch(
+      availableRoomId,
+      playersIds,
+      numberOfWords,
+      numberOfCharacters
+    );
+    io.to(availableRoomId).emit("startGame", sentence);
   }, 500);
 }
 
 function generateSentence() {
-  // const sentence = 'The numbers in the table specifies the first browser version that fully supports the selector.';
+  const sentence =
+    "The numbers in the table specifies the first browser version that fully supports the selector. he numbers in the table specifies the first browser version that fully supports the selector.";
   // const sentence = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
-  const sentence = 'aaaaaaaaaaa';
+  //const sentence = 'aaaaaaaaaaa';
   return {
     sentence,
     numberOfWords: countWords(sentence),
@@ -69,13 +75,13 @@ function countWords(sentence) {
 }
 
 async function checkRecordBroken(userStats, userName) {
-  const {ok, stats, statsError} = await getStats();
+  const { ok, stats, statsError } = await getStats();
   let insertIndex;
   if (ok) {
     for (let i = 0; i < stats.length; i++) {
       if (userStats.cps > stats[i].cps) {
         insertIndex = i;
-        console.log('BIGGER THAN', stats[i].name);
+        console.log("BIGGER THAN", stats[i].name);
         break;
       }
     }
@@ -92,10 +98,10 @@ async function checkRecordBroken(userStats, userName) {
       }
       const builtNewStats = [
         ...arrayTop,
-        {name: userName, cps: userStats.cps, wpm: userStats.wpm},
+        { name: userName, cps: userStats.cps, wpm: userStats.wpm },
         ...arrayBottom
       ];
-      console.log('NEW STATS', builtNewStats);
+      console.log("NEW STATS", builtNewStats);
       updateStats(builtNewStats);
     }
   }

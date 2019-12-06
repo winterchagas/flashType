@@ -9,13 +9,18 @@
   }
 
   &__box {
-    height: 400px;
-    width: 400px;
-    border: 2px solid black;
-    font-size: 50px;
-    font-weight: 600;
+    min-height: 240px;
+    min-width: 240px;
+    height: 50vh;
+    width: 50vh;
+    max-height: 400px;
+    max-width: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-    background: white;
+    background: #ffffff;
+    box-shadow: 0px 0px 20px 0px rgb(150, 150, 150);
     border-radius: 5px;
     padding: 20px;
     position: absolute;
@@ -23,5 +28,101 @@
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1;
+  }
+
+  &__circle {
+    height: 200px;
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    background: white;
+    font-size: 60px;
+    font-weight: 600;
+    transition-duration: .5s;
+    //box-shadow: 0px 0px 20px 0px #ff4d4d;
+
+    text {
+      color: red;
+      animation: zoomin 1.0s 0s infinite;
+    }
+
+    @keyframes zoomin {
+      0% {
+        font-size: 100%;
+        opacity: 1;
+      }
+
+      5% {
+        font-size: 95%;
+        opacity: 1;
+      }
+
+      10% {
+        font-size: 90%;
+        opacity: 1;
+      }
+
+      15% {
+        font-size: 95%;
+        opacity: 1;
+      }
+
+      20% {
+        font-size: 100%;
+        opacity: 0.95;
+      }
+
+      25% {
+        font-size: 105%;
+        opacity: 0.88;
+      }
+
+      30% {
+        font-size: 111%;
+        opacity: 0.80;
+      }
+
+      35% {
+        font-size: 118%;
+        opacity: 0.71;
+      }
+
+      40% {
+        font-size: 125%;
+        opacity: 0.61;
+      }
+
+      50% {
+        font-size: 132%;
+        opacity: 0.5;
+      }
+
+      60% {
+        font-size: 140%;
+        opacity: 0.4;
+      }
+
+      70% {
+        font-size: 150%;
+        opacity: 0.30
+      }
+
+      80% {
+        font-size: 160%;
+        opacity: 0.20
+      }
+
+      90% {
+        font-size: 170%;
+        opacity: 0.10
+      }
+
+      100% {
+        font-size: 180%;
+        opacity: 0;
+      }
+    }
   }
 }
