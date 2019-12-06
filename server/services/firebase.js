@@ -45,7 +45,6 @@ async function getStats() {
       .ref(`stats`)
       .once('value');
     console.log('GET ALL STATS', snapshot.val());
-    console.log('type', Array.isArray(snapshot.val()));
     return {
       ok: true,
       stats: snapshot.val()

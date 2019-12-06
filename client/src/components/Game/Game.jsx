@@ -29,6 +29,7 @@ import Header from "../Header/Header.jsx";
 import PhraseBox from "../PhraseBox/PhraseBox.jsx";
 import Rankings from "../Rankings/Rankings.jsx";
 import TypeBox from "../TypeBox/TypeBox.jsx";
+import MatchStats from "../MatchStats/MatchStats.jsx";
 import ProgressBars from "../ProgressBars/ProgressBars.jsx";
 import TimerModal from "../TimerModal/TimerModal.jsx";
 
@@ -91,6 +92,8 @@ const Game = ({socket, isUserLoggedIn, setIsUserLoggedIn, googleAuth}) => {
           isUserLoggedIn={isUserLoggedIn}
           setIsUserLoggedIn={setIsUserLoggedIn}
           setDisplayRankings={setDisplayRankings}
+          gameStarted={gameStarted}
+          isEndOfSentence={isEndOfSentence}
         />
         <div className="game__center-box">
           <PhraseBox
@@ -106,6 +109,11 @@ const Game = ({socket, isUserLoggedIn, setIsUserLoggedIn, googleAuth}) => {
           {/*  phraseSecondPart={phraseSecondPart}*/}
           {/*/>*/}
         </div>
+        {
+          gameStarted &&
+          isEndOfSentence &&
+            <MatchStats />
+        }
       </div>
       {
         !gameStarted &&
@@ -116,7 +124,7 @@ const Game = ({socket, isUserLoggedIn, setIsUserLoggedIn, googleAuth}) => {
         />
       }
       {
-        !gameStarted && displayRankings &&
+        (!gameStarted || isEndOfSentence) && displayRankings &&
         <Rankings setDisplayRankings={setDisplayRankings}/>
       }
     </>

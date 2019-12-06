@@ -1,4 +1,5 @@
 const {getStats, updateStats} = require('../services/firebase');
+const sentences = require('./sentences');
 
 function buildRoomPlayersInfo(users, playersInRoomIds) {
   const roomPlayers = {};
@@ -34,13 +35,13 @@ function generateRandomName() {
 function calculateWpm(match, playerId) {
   const {numberOfWords} = match;
   const {elapsedTime} = match[playerId];
-  return numberOfWords / (elapsedTime / 60)
+  return Number((numberOfWords / (elapsedTime / 60)).toFixed(1));
 }
 
 function calculateCps(match, playerId) {
   const {numberOfCharacters} = match;
   const {elapsedTime} = match[playerId];
-  return numberOfCharacters / elapsedTime
+  return Number((numberOfCharacters / elapsedTime).toFixed(2));
 }
 
 function startGame(io, matches, availableRoomId, playersIds) {
@@ -54,9 +55,10 @@ function startGame(io, matches, availableRoomId, playersIds) {
 }
 
 function generateSentence() {
-  // const sentence = 'The numbers in the table specifies the first browser version that fully supports the selector.';
-  // const sentence = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
-  const sentence = 'aaaaaaaaaaa';
+  const randomIndex = getRandomInt(9);
+  const sentence = sentences[randomIndex];
+  // const sentence = 'The numbers in the table specifies the first browser anything to make ig bigger version that fully supports the selector. The numbers in the table specifies the first browser anything to make ig bigger version that fully supports the selector.';
+  // const sentence = 'aaaaaaaaaaa';
   return {
     sentence,
     numberOfWords: countWords(sentence),
@@ -75,7 +77,6 @@ async function checkRecordBroken(userStats, userName) {
     for (let i = 0; i < stats.length; i++) {
       if (userStats.cps > stats[i].cps) {
         insertIndex = i;
-        console.log('BIGGER THAN', stats[i].name);
         break;
       }
     }
@@ -95,7 +96,6 @@ async function checkRecordBroken(userStats, userName) {
         {name: userName, cps: userStats.cps, wpm: userStats.wpm},
         ...arrayBottom
       ];
-      console.log('NEW STATS', builtNewStats);
       updateStats(builtNewStats);
     }
   }

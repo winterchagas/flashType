@@ -1,15 +1,22 @@
 import React, {useState} from 'react';
+import classNames from 'classnames';
 import mainLogo from '../../../../assets/main-logo.svg'
 import {myUserInfo, noOp} from "../../helpers/helpers";
 import {getRandomImage} from '../../helpers/images';
 import './index.scss';
 
-const Header = ({googleAuth, setIsUserLoggedIn, isUserLoggedIn, setDisplayRankings}) => {
+const Header = ({
+                  googleAuth,
+                  setIsUserLoggedIn,
+                  isUserLoggedIn,
+                  setDisplayRankings,
+                  gameStarted,
+                  isEndOfSentence
+                }) => {
   const [displayLogoutButton, setDisplayLogoutButton] = useState(false);
 
   async function handleGoogleLogout() {
     await googleAuth.signOut();
-    console.log('LOGGED OUT');
     setDisplayLogoutButton(false);
     setIsUserLoggedIn(false);
   }
@@ -35,11 +42,22 @@ const Header = ({googleAuth, setIsUserLoggedIn, isUserLoggedIn, setDisplayRankin
     return getRandomImage(name.substring(0, name.indexOf('-')));
   }
 
+  function displayRankings() {
+    if (!gameStarted || isEndOfSentence) {
+      setDisplayRankings(true)
+    }
+  }
+
+  const headerRankingClassName = classNames({
+    'main-header__rankings': !gameStarted || isEndOfSentence,
+    'main-header__rankings--disabled': gameStarted && !isEndOfSentence,
+  });
+
   return (
     <div className="main-header">
       <div
-        onClick={() => setDisplayRankings(true)}
-        className="main-header__rankings">
+        onClick={displayRankings}
+        className={headerRankingClassName}>
         Rankings
       </div>
       <div className="main-header__main-logo-box">

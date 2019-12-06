@@ -2,16 +2,13 @@
 
 .progress {
   &__container {
-    //border: 1px solid blue;
     display: flex;
-    //flex-wrap: wrap;
     justify-content: space-around;
     margin-bottom: 30px;
     padding: 20px;
   }
 
   &__my-progress {
-    border: 1px solid red;
   }
 
   &__img {
@@ -20,14 +17,12 @@
   }
 
   &__others {
-    border: 1px solid red;
   }
 
   &__each-player {
     display: flex;
     justify-content: center;
     margin: 25px 15px;
-
     color: white;
     font-family: 'Orbitron', sans-serif;
     letter-spacing: 2px;
