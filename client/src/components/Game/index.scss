@@ -1,6 +1,7 @@
 .game {
   &__container {
-    height: 100vh;
+    height: fit-content;
+    min-height: 100vh;
     background-color: #2d2d2d;
     background-image: linear-gradient(40deg, rgb(53, 53, 53), rgb(25, 25, 25));
   }
@@ -8,9 +9,42 @@
   &__center-box {
     margin: 60px auto;
     background-color: #1B1A1A;
+    min-width: 650px;
+    width: 60vw;
     max-width: 800px;
     border-radius: 8px;
     padding: 35px 45px;
     box-shadow: 2px 3px 6px #1c1c1c;
+  }
+
+  &__button-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__button {
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 2.2px;
+    font-family: SourceCodePro, monospace;
+    color: white;
+    margin-bottom: 28px;
+    position: relative;
+    cursor: pointer;
+    height: 40px;
+    line-height: 38px;
+    width: 300px;
+    border: none;
+    border-radius: 50px;
+    outline: transparent;
+
+    &--play-again {
+      background-image: linear-gradient(-30deg, #52a5d3 0%, #97eefc 100%);
+    }
+
+    &--play-again:hover {
+      box-shadow: 0 0 12px 3px #52a5d3;
+    }
   }
 }

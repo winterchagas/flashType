@@ -1,13 +1,8 @@
-import React, {
-  useState,
-  Fragment,
-  useEffect,
-  useRef
-} from 'react';
+import React, { useState, Fragment, useEffect, useRef } from "react";
 import {
   shouldCaptureCharacter,
   myUserInfo,
-  playersInfo,
+  playersInfo
 } from "../../helpers/helpers";
 import {
   hasPreviousTypeError,
@@ -33,35 +28,35 @@ import MatchStats from "../MatchStats/MatchStats.jsx";
 import ProgressBars from "../ProgressBars/ProgressBars.jsx";
 import TimerModal from "../TimerModal/TimerModal.jsx";
 
-import './index.scss';
+import "./index.scss";
 
-const Game = ({socket, isUserLoggedIn, setIsUserLoggedIn, googleAuth}) => {
+const Game = ({ socket, isUserLoggedIn, setIsUserLoggedIn, googleAuth }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [playersCurrentProgress, setPlayersCurrentProgress] = useState({});
   const [gameStarted, setGameStarted] = useState(false);
   const [isEndOfSentence, setIsEndOfSentence] = useState(false);
   const [displayRankings, setDisplayRankings] = useState(false);
-
+  const [currentStats, setCurrentStats] = useState([]);
 
   const typeElement = useRef(null);
 
   useEffect(() => {
     startSocketRemoteType(socket, setPlayersCurrentProgress);
     startSocketPlayerLeft(socket);
-    startSocketGetMatchStats(socket);
+    startSocketGetMatchStats(socket, setCurrentStats);
   }, []);
 
-  const handleTyping = (event) => {
+  const handleTyping = event => {
     event.preventDefault();
     if (!gameStarted) return;
     if (isEndOfSentence) return;
 
     if (shouldCaptureCharacter(event.key)) {
-      if (event.key === 'Backspace') {
+      if (event.key === "Backspace") {
         const shouldReRender = handleBackspaceType();
         if (shouldReRender) {
           setCurrentIndex(currentIndex - 1);
-          setPlayersCurrentProgress({...playersProgress});
+          setPlayersCurrentProgress({ ...playersProgress });
         }
         return;
       }
@@ -71,7 +66,7 @@ const Game = ({socket, isUserLoggedIn, setIsUserLoggedIn, googleAuth}) => {
       } else {
         if (isNextCharacterCorrect(event.key)) {
           handleCorrectType(socket, event.key, setIsEndOfSentence);
-          setPlayersCurrentProgress({...playersProgress});
+          setPlayersCurrentProgress({ ...playersProgress });
         } else {
           handleWrongType();
         }
@@ -86,7 +81,8 @@ const Game = ({socket, isUserLoggedIn, setIsUserLoggedIn, googleAuth}) => {
         className="game__container"
         tabIndex={0}
         ref={typeElement}
-        onKeyDown={handleTyping}>
+        onKeyDown={handleTyping}
+      >
         <Header
           googleAuth={googleAuth}
           isUserLoggedIn={isUserLoggedIn}
@@ -101,32 +97,31 @@ const Game = ({socket, isUserLoggedIn, setIsUserLoggedIn, googleAuth}) => {
             phraseErrorPart={phraseErrorPart}
             phraseSecondPart={phraseSecondPart}
           />
-          <ProgressBars
-            playersCurrentProgress={playersCurrentProgress}
-          />
+          <ProgressBars playersCurrentProgress={playersCurrentProgress} />
           {/*<TypeBox*/}
           {/*  typedPhrase={typedPhrase}*/}
           {/*  phraseSecondPart={phraseSecondPart}*/}
           {/*/>*/}
+          {gameStarted && isEndOfSentence && (
+            <div className="game__button-container">
+              <button className="game__button game__button--play-again">
+                <span>Play again</span>
+              </button>
+            </div>
+          )}
         </div>
-        {
-          gameStarted &&
-          isEndOfSentence &&
-            <MatchStats />
-        }
+        {gameStarted && isEndOfSentence && <MatchStats stats={currentStats} />}
       </div>
-      {
-        !gameStarted &&
+      {!gameStarted && (
         <TimerModal
           setGameStarted={setGameStarted}
           socket={socket}
           typeElement={typeElement}
         />
-      }
-      {
-        (!gameStarted || isEndOfSentence) && displayRankings &&
-        <Rankings setDisplayRankings={setDisplayRankings}/>
-      }
+      )}
+      {(!gameStarted || isEndOfSentence) && displayRankings && (
+        <Rankings setDisplayRankings={setDisplayRankings} />
+      )}
     </>
   );
 };
