@@ -5,14 +5,14 @@ import {myUserInfo, noOp} from "../../helpers/helpers";
 import {getRandomImage} from '../../helpers/images';
 import './index.scss';
 
-const Header = ({
+const Header = React.memo(function HeaderComponent({
                   googleAuth,
                   setIsUserLoggedIn,
                   isUserLoggedIn,
                   setDisplayRankings,
                   gameStarted,
                   isEndOfSentence
-                }) => {
+                }) {
   const [displayLogoutButton, setDisplayLogoutButton] = useState(false);
 
   async function handleGoogleLogout() {
@@ -96,6 +96,6 @@ const Header = ({
       </div>
     </div>
   );
-};
+});
 
 export default Header;
