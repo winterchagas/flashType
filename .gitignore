@@ -2,7 +2,7 @@
 client/node_modules/
 .idea
 /build*
-keys.js
+#keys.js
 **.DS_Store
 client/.DS_Store
 client/src/.DS_Store
