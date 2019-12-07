@@ -55,9 +55,9 @@ function startGame(io, matches, availableRoomId, playersIds) {
 }
 
 function generateSentence() {
-  // const randomIndex = getRandomInt(16);
-  // const sentence = sentences[randomIndex];
-  const sentence = 'aaa';
+  const randomIndex = getRandomInt(16);
+  const sentence = sentences[randomIndex];
+  // const sentence = 'aaa';
  return {
     sentence,
     numberOfWords: countWords(sentence),

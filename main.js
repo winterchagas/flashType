@@ -19,9 +19,6 @@ require('./server/routes/authRoutes').initializeRoutes(app, users);
 require('./server/routes/statsRoutes').initializeRoutes(app);
 require('./server/services/communication').initializeCommunication(io, users, rooms, matches);
 
-console.log('----------------- ENVIRONMENT ---------------- ');
-console.log(process.env.ENVIRONMENT);
-console.log('----------------- END ---------------- ');
 if (process.env.ENVIRONMENT === 'production') {
   const staticMiddleware = express.static("build");
   app.use(staticMiddleware);

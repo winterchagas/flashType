@@ -5,29 +5,24 @@
     left: 0;
     bottom: 0;
     right: 0;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(255,255,255,0.5);
+    z-index: 3;
   }
 
   &__box {
-    min-height: 240px;
-    min-width: 240px;
-    height: 50vh;
-    width: 50vh;
-    max-height: 400px;
-    max-width: 400px;
+    height: 250px;
+    width: 250px;
     display: flex;
     justify-content: center;
     align-items: center;
-
-    background: #ffffff;
-    box-shadow: 0px 0px 20px 0px rgb(150, 150, 150);
-    border-radius: 5px;
+    background: #1b1a1a;
+    box-shadow: 0 0 25px 0 #1b1a1a;
+    border-radius: 15px;
     padding: 20px;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 1;
   }
 
   &__circle {
@@ -37,14 +32,13 @@
     justify-content: center;
     align-items: center;
     border-radius: 100px;
-    background: white;
+    background: transparent;
     font-size: 60px;
     font-weight: 600;
     transition-duration: .5s;
-    //box-shadow: 0px 0px 20px 0px #ff4d4d;
 
     text {
-      color: red;
+      color: #aaecfa;
       animation: zoomin 1.0s 0s infinite;
     }
 
