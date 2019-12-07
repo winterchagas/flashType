@@ -23,7 +23,7 @@ class Rooms {
       return {failed: true};
     }
     room.players.push(playerId);
-    if (room.players.length > 4) {
+    if (room.players.length > 1) {
       room.full = true;
       shouldStartGame = true;
     }

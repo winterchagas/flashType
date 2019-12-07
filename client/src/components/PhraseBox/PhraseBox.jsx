@@ -6,8 +6,8 @@ function PhraseBox(props) {
     document.getElementById("valid_entry") === null
       ? 32
       : document.getElementById("valid_entry").offsetHeight;
-  const margin_top = 32 - correct_height;
-  const visible_phrase_style = { marginTop: margin_top };
+  const marginTop = 32 - correct_height;
+  const visible_phrase_style = { marginTop };
   return (
     <div className="phrase-box__container">
       <div className="phrase-box__break" style={visible_phrase_style}>
