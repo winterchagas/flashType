@@ -1,66 +1,49 @@
 @import '../../styles/variables';
 
-.main-header {
-  background-color: #212121;
-  padding: 30px 25px 20px 25px;
-  box-shadow: 0 2px 2px #1B1A1A;
-  display: flex;
-  justify-content: space-between;
-
-  &__rankings {
-    font-size: 18px;
-    cursor: pointer;
-    border: 2px solid white;
-    color: white;
-    height: 23px;
-    padding: 3px 7px;
-    border-radius: 10px;
-  }
-
-  &__rankings:hover {
-    box-shadow: 0 0 25px -5px white;
-  }
-
-  &__rankings--disabled {
-    font-size: 18px;
-    border: 2px solid white;
-    color: white;
-    height: 23px;
-    padding: 3px 7px;
-    border-radius: 10px;
-  }
-
-  &__main-logo {
-    width: 300px;
-    display: block;
-    margin: auto;
-  }
-
-  &__profile-image-box {
-    width: 60px;
-    height: 60px;
-    margin-top: -15px;
-  }
-
-  &__profile-image {
-    cursor: pointer;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    display: block;
-  }
-
-  &__profile-image:hover {
-    box-shadow: 0 0 25px -5px white;
-  }
-
-  &__logout-button {
-    padding-left: 3px;
-    color: white;
+.stats {
+  &__box {
     font-size: 17px;
-    cursor: pointer;
-    border: 2px solid white;
-    border-radius: 10px;
-    margin-top: 15px;
+    font-weight: 600;
+    border-radius: 5px;
+    z-index: 1;
+    margin: 0px auto;
+    padding-bottom: 60px;
+    min-width: 740px;
+    width: calc(60vw + 90px);
+    max-width: 890px;
+  }
+
+  &__header {
+    font-size: 17px;
+    font-weight: 600;
+    color: #FFCC66;
+    margin-bottom: 24px;
+  }
+
+  &__table-row {
+    min-width: 740px;
+    width: calc(60vw + 90px);
+    max-width: 890px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #1B1A1A;
+    padding-bottom: 10px;
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 2px;
+    font-size: 14px;
+    color: white;
+  }
+
+  &__trophy-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 15px;
+  }
+
+  &__number {
+    color: $main-yellow;
+    margin-right: 15px;
   }
 }
