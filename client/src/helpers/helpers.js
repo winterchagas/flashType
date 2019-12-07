@@ -7,7 +7,8 @@ const allowedCharacters = {
   W: true, E: true, R: true, T: true, Y: true, U: true, I: true,
   O: true, P: true, A: true, S: true, D: true, F: true, G: true,
   H: true, J: true, K: true, L: true, Z: true, X: true, C: true,
-  V: true, B: true, N: true, M: true, ' ': true, 'Backspace': true
+  V: true, B: true, N: true, M: true, ' ': true, 'Backspace': true,
+  '-': true
 };
 
 export function shouldCaptureCharacter(character) {
