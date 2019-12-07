@@ -25,7 +25,7 @@ class Matches {
         elapsedTime: null,
       }
     });
-    console.log('MATCH ADDED', matchId);
+    // console.log('MATCH ADDED', matchId);
     return true;
   }
 

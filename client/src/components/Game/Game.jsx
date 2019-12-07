@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useEffect, useRef } from "react";
+import React, {useState, Fragment, useEffect, useRef} from "react";
 import {
   shouldCaptureCharacter,
   myUserInfo,
@@ -30,7 +30,7 @@ import TimerModal from "../TimerModal/TimerModal.jsx";
 
 import "./index.scss";
 
-const Game = ({ socket, isUserLoggedIn, setIsUserLoggedIn, googleAuth }) => {
+const Game = ({socket, isUserLoggedIn, setIsUserLoggedIn, googleAuth}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [playersCurrentProgress, setPlayersCurrentProgress] = useState({});
   const [gameStarted, setGameStarted] = useState(false);
@@ -56,7 +56,7 @@ const Game = ({ socket, isUserLoggedIn, setIsUserLoggedIn, googleAuth }) => {
         const shouldReRender = handleBackspaceType();
         if (shouldReRender) {
           setCurrentIndex(currentIndex - 1);
-          setPlayersCurrentProgress({ ...playersProgress });
+          setPlayersCurrentProgress({...playersProgress});
         }
         return;
       }
@@ -66,7 +66,7 @@ const Game = ({ socket, isUserLoggedIn, setIsUserLoggedIn, googleAuth }) => {
       } else {
         if (isNextCharacterCorrect(event.key)) {
           handleCorrectType(socket, event.key, setIsEndOfSentence);
-          setPlayersCurrentProgress({ ...playersProgress });
+          setPlayersCurrentProgress({...playersProgress});
         } else {
           handleWrongType();
         }
@@ -97,20 +97,22 @@ const Game = ({ socket, isUserLoggedIn, setIsUserLoggedIn, googleAuth }) => {
             phraseErrorPart={phraseErrorPart}
             phraseSecondPart={phraseSecondPart}
           />
-          <ProgressBars playersCurrentProgress={playersCurrentProgress} />
-          {/*<TypeBox*/}
-          {/*  typedPhrase={typedPhrase}*/}
-          {/*  phraseSecondPart={phraseSecondPart}*/}
-          {/*/>*/}
-          {gameStarted && isEndOfSentence && (
-            <div className="game__button-container">
-              <button className="game__button game__button--play-again">
-                <span>Play again</span>
-              </button>
-            </div>
-          )}
+          <ProgressBars playersCurrentProgress={playersCurrentProgress}/>
+          {
+            gameStarted &&
+            isEndOfSentence && (
+              <div className="game__button-container">
+                <button className="game__button game__button--play-again">
+                  <span>Play again</span>
+                </button>
+              </div>
+            )}
         </div>
-        {gameStarted && isEndOfSentence && <MatchStats stats={currentStats} />}
+        {
+          gameStarted &&
+          isEndOfSentence &&
+          <MatchStats stats={currentStats}/>
+        }
       </div>
       {!gameStarted && (
         <TimerModal
@@ -119,9 +121,11 @@ const Game = ({ socket, isUserLoggedIn, setIsUserLoggedIn, googleAuth }) => {
           typeElement={typeElement}
         />
       )}
-      {(!gameStarted || isEndOfSentence) && displayRankings && (
-        <Rankings setDisplayRankings={setDisplayRankings} />
-      )}
+      {
+        (!gameStarted || isEndOfSentence) &&
+        displayRankings &&
+        <Rankings setDisplayRankings={setDisplayRankings}/>
+      }
     </>
   );
 };

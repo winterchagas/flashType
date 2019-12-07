@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import classNames from 'classnames';
-import mainLogo from '../../../../assets/main-logo.svg'
+import mainLogo from '../../../../public/main-logo.svg'
 import {myUserInfo, noOp} from "../../helpers/helpers";
 import {getRandomImage} from '../../helpers/images';
 import './index.scss';

@@ -1,7 +1,7 @@
 import React from 'react';
 import {myUserInfo, playersIdNumbersMap, playersInfo} from '../../helpers/helpers';
 import CircleProgress from "./CircleProgress/CircleProgress.jsx";
-import percentage from '../../../../assets/percentage.png';
+import percentage from '../../../../public/percentage.png';
 
 import './index.scss';
 

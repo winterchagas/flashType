@@ -6,7 +6,7 @@ function initializeCommunication(io, users, rooms, matches) {
     const userInfo = {};
 
     socket.on('gameStarted', () => {
-      console.log('GAME STARTED');
+      // console.log('GAME STARTED');
       matches.startUserTimer(userInfo.roomId, userInfo.userId);
     });
 
@@ -48,7 +48,7 @@ function initializeCommunication(io, users, rooms, matches) {
 
     socket.on('disconnect', () => {
       const {roomId, userId} = userInfo;
-      console.log('LEFT GAME', userId);
+      // console.log('LEFT GAME', userId);
       if (!!roomId && !!userId) {
         socket.to(userInfo.roomId).emit('playerLeft', userId);
         users.deleteUser(userId);

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import "./index.scss";
 
 const TimerModal = ({ socket, setGameStarted, typeElement }) => {
-  const totalTime = 3;
+  const totalTime = 300;
 
   const [currentTime, setCurrentTime] = useState(totalTime);
 
@@ -20,12 +20,12 @@ const TimerModal = ({ socket, setGameStarted, typeElement }) => {
         currentTime !== "GO!" && currentTime > 1 ? currentTime - 1 : "GO!"
       );
     }, 1000);
-    setTimeout(() => {
-      clearInterval(interval);
-      socket.emit("gameStarted");
-      setGameStarted(true);
-      typeElement.current.focus();
-    }, totalTime * 1000 + 999);
+    // setTimeout(() => {
+    //   clearInterval(interval);
+    //   socket.emit("gameStarted");
+    //   setGameStarted(true);
+    //   typeElement.current.focus();
+    // }, totalTime * 1000 + 999);
   }
 
   useEffect(() => {

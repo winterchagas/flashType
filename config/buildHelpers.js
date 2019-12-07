@@ -138,7 +138,7 @@ function getServer() {
     // Display only errors to reduce the amount of output.
     // 0.0.0.0 is available to all network devices
     // unlike default `localhost`.
-    host: process.env.HOST, // Defaults to `localhost`
+    host: '0.0.0.0', // Defaults to `localhost`
     port: process.env.PORT, // Defaults to 8080
     open: true, // Open the page in browser
     overlay: true,

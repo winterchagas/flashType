@@ -14,7 +14,7 @@ import {
 import Header from "../Header/Header.jsx";
 import Spinner from "../Spinner/Spinner.jsx";
 import Rankings from "../Rankings/Rankings.jsx";
-import googleLogo from "../../../../assets/google-plus.svg";
+import googleLogo from "../../../../public/google-plus.svg";
 
 import "./index.scss";
 
@@ -43,8 +43,6 @@ const ModalLogin = ({
       },
       body: JSON.stringify(payload)
     });
-    // console.log('ACCESS TOKEN', currentUser.getAuthResponse().access_token);
-    // console.log('ID TOKEN', currentUser.getAuthResponse().id_token);
   }
 
   async function handlePlayAsGuest() {
@@ -54,7 +52,7 @@ const ModalLogin = ({
       if (roomId) {
         const isNotFirstInRoom = !!playersData;
         if (isNotFirstInRoom) {
-          console.log("You joined", playersData);
+          // console.log("You joined", playersData);
           addPlayers(playersData);
           const recentUsers = makePlayersInRoom();
           setPlayersInRoom(recentUsers);
@@ -79,7 +77,7 @@ const ModalLogin = ({
         if (roomId) {
           const isNotFirstInRoom = !!playersData;
           if (isNotFirstInRoom) {
-            console.log("You joined", playersData);
+            // console.log("You joined", playersData);
             addPlayers(playersData);
             const recentUsers = makePlayersInRoom();
             setPlayersInRoom(recentUsers);
@@ -89,13 +87,11 @@ const ModalLogin = ({
           setIsWaitingForPlayers(true);
         } else {
           //todo display message to the user
-          console.log("YOU ARE ALREADY PLAYING IN THIS ROOM");
+          // console.log("YOU ARE ALREADY PLAYING IN THIS ROOM");
         }
       });
     }
   }
-
-  console.log(playersInRoom);
 
   return (
     <div className="login__container">
@@ -116,8 +112,7 @@ const ModalLogin = ({
               <div className="login__players-joined">
                 {playersInRoom.map(player => (
                   <div key={player} className="login__player">
-                    <div>{player}</div>
-                    <div>Joined</div>
+                    <div>{player} - Joined</div>
                   </div>
                 ))}
               </div>

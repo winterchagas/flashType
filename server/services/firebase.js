@@ -12,10 +12,10 @@ async function createUser(profile) {
     await firebase.database()
       .ref(`users/${profile.userId}`)
       .set(profile);
-    console.log('CREATED USER', profile);
+    // console.log('CREATED USER', profile);
     return {userCreated: true}
   } catch (createUserError) {
-    console.log('ERROR CREATING USER', createUserError);
+    // console.log('ERROR CREATING USER', createUserError);
     return {createUserError}
   }
 }
@@ -25,13 +25,13 @@ async function findUser(uuid) {
     const snapshot = await firebase.database()
       .ref(`users/${uuid}`)
       .once('value');
-    console.log('FIND USER RESPONSE', snapshot.val());
+    // console.log('FIND USER RESPONSE', snapshot.val());
     return {
       ok: true,
       user: snapshot.val()
     }
   } catch (error) {
-    console.log('ERROR FINDING USER', error);
+    // console.log('ERROR FINDING USER', error);
     return {
       ok: false,
       findUserError: error
@@ -44,13 +44,13 @@ async function getStats() {
     const snapshot = await firebase.database()
       .ref(`stats`)
       .once('value');
-    console.log('GET ALL STATS', snapshot.val());
+    // console.log('GET ALL STATS', snapshot.val());
     return {
       ok: true,
       stats: snapshot.val()
     }
   } catch (error) {
-    console.log('ERROR GETTING STATS', error);
+    // console.log('ERROR GETTING STATS', error);
     return {
       ok: false,
       statsError: error
@@ -63,9 +63,9 @@ async function updateStats(newStats) {
     await firebase.database()
       .ref(`stats`)
       .set(newStats);
-    console.log('STATS UPDATED', newStats);
+    // console.log('STATS UPDATED', newStats);
   } catch (updateStatsError) {
-    console.log('ERROR UPDATING STATS', updateStatsError);
+    // console.log('ERROR UPDATING STATS', updateStatsError);
   }
 }
 

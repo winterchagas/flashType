@@ -29,7 +29,7 @@ function initializeGoogleAuth(setGoogleAuth, setIsUserLoggedIn) {
           }
 
           googleAuth.isSignedIn.listen(() => {
-            console.log('LINSTEN LOG IN', googleAuth.isSignedIn.get());
+            // console.log('LINSTEN LOG IN', googleAuth.isSignedIn.get());
             setUserInfoFromGoogle(googleAuth);
             setIsUserLoggedIn(googleAuth.isSignedIn.get());
           })

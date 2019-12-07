@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import trophyIcon from "../../../../assets/trophy.png";
+import trophyIcon from "../../../../public/trophy.png";
 
 import "./index.scss";
 

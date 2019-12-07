@@ -55,11 +55,10 @@ function startGame(io, matches, availableRoomId, playersIds) {
 }
 
 function generateSentence() {
-  const randomIndex = getRandomInt(9);
-  const sentence = sentences[randomIndex];
-  // const sentence = 'The numbers in the table specifies the first browser anything to make ig bigger version that fully supports the selector. The numbers in the table specifies the first browser anything to make ig bigger version that fully supports the selector.';
-  // const sentence = 'aaaaaaaaaaa';
-  return {
+  // const randomIndex = getRandomInt(16);
+  // const sentence = sentences[randomIndex];
+  const sentence = 'aaa';
+ return {
     sentence,
     numberOfWords: countWords(sentence),
     numberOfCharacters: sentence.length

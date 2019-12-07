@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "set ENVIRONMENT=development&& nodemon main.js",
-    "build-prod": "rm -rf prod-build/* && ./node_modules/.bin/webpack --config=config/webpack.prod.js",
-    "start-prod": "node main-prod.js",
+    "build-prod": "./node_modules/.bin/webpack --config=webpack.prod-new.js",
     "start": "set ENVIRONMENT=production&& yarn build-prod && node main.js"
   },
   "keywords": [],

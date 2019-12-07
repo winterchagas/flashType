@@ -1,7 +1,7 @@
 /node_modules
 client/node_modules/
 .idea
-/prodBuild
+/build*
 keys.js
 **.DS_Store
 client/.DS_Store

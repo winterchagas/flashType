@@ -11,7 +11,7 @@ class Users {
     // }
     // const user = {name};
     this.users[userId] = userName;
-    console.log('USER ADDED', userName, this.users);
+    // console.log('USER ADDED', userName, this.users);
     return {userName, userId};
   }
 
@@ -21,7 +21,7 @@ class Users {
 
   deleteUser(userId) {
     if (this.users[userId]) delete this.users[userId];
-    console.log('USER DELETED', userId);
+    // console.log('USER DELETED', userId);
   }
 
   resetUsers() {
