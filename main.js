@@ -19,6 +19,9 @@ require('./server/routes/authRoutes').initializeRoutes(app, users);
 require('./server/routes/statsRoutes').initializeRoutes(app);
 require('./server/services/communication').initializeCommunication(io, users, rooms, matches);
 
+console.log('----------------- ENVIRONMENT ---------------- ');
+console.log(process.env.ENVIRONMENT);
+console.log('----------------- END ---------------- ');
 if (process.env.ENVIRONMENT === 'production') {
   const staticMiddleware = express.static("build");
   app.use(staticMiddleware);
@@ -29,4 +32,4 @@ if (process.env.ENVIRONMENT === 'production') {
   require('./config/devSetup').devSetup(app);
 }
 
-http.listen(5000, () => console.log('server started '));
+http.listen(process.env.PORT || 5000, () => console.log('FLASHTYPE SERVER STARTED BABY'));

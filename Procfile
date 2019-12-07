@@ -1,0 +1,1 @@
+web: ENVIRONMENT=production&& yarn build-prod && node main.js
