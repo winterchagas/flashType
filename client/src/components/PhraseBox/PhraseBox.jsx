@@ -15,7 +15,7 @@ function PhraseBox(props) {
           {props.phraseFirstPart.join("")}
         </span>
         <span className="phrase-box__error-part">
-          {props.phraseErrorPart.join("")}
+          {props.phraseErrorPart.join("").replace(/ /g, "_")}
         </span>
         <span className="phrase-box__cursor"></span>
         <span className="phrase-box__last-part">

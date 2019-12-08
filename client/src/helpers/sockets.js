@@ -22,7 +22,7 @@ export function startSocketRemoteType(socket, setPlayersCurrentProgress) {
 
 export function startSocketPlayerLeft(socket, setPlayersInRoom) {
   socket.on("playerLeft", function(userId) {
-    console.info("playerLeft", playersInfo[userId]);
+    // console.info("playerLeft", playersInfo[userId]);
     deletePlayer(userId);
     const recentUsers = makePlayersInRoom();
     setPlayersInRoom(recentUsers);
@@ -31,7 +31,7 @@ export function startSocketPlayerLeft(socket, setPlayersInRoom) {
 
 export function startSocketPlayerJoined(socket, setPlayersInRoom) {
   socket.on("playerJoined", function(user) {
-    console.info("playerJoined", user[Object.keys(user)[0]]);
+    // console.info("playerJoined", user[Object.keys(user)[0]]);
     addPlayers(user);
     const recentUsers = makePlayersInRoom();
     setPlayersInRoom(recentUsers);

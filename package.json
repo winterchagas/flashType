@@ -39,6 +39,7 @@
     "sass-loader": "^8.0.0",
     "socket.io": "^2.3.0",
     "style-loader": "^1.0.0",
+    "uifx": "^2.0.6",
     "uuid": "^3.3.3",
     "webpack": "^4.41.0",
     "webpack-cli": "^3.3.9",
