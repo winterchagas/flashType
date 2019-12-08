@@ -98,15 +98,15 @@ const Game = ({socket, isUserLoggedIn, setIsUserLoggedIn, googleAuth}) => {
             phraseSecondPart={phraseSecondPart}
           />
           <ProgressBars playersCurrentProgress={playersCurrentProgress}/>
-          {
-            gameStarted &&
-            isEndOfSentence && (
-              <div className="game__button-container">
-                <button className="game__button game__button--play-again">
-                  <span>Play again</span>
-                </button>
-              </div>
-            )}
+          {/*{*/}
+          {/*  gameStarted &&*/}
+          {/*  isEndOfSentence && (*/}
+          {/*    <div className="game__button-container">*/}
+          {/*      <button className="game__button game__button--play-again">*/}
+          {/*        <span>Play again</span>*/}
+          {/*      </button>*/}
+          {/*    </div>*/}
+          {/*  )}*/}
         </div>
         {
           gameStarted &&
