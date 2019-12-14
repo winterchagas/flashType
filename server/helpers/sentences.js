@@ -2,7 +2,7 @@ module.exports = {
   0: 'The first merit which attracts in the pages of a good writer, or the talk of a brilliant conversationalist, is the apt choice and contrast of the words employed.',
   1: 'The most powerful expression of thought and feeling through the medium of oral language must be traced to the mastery of words. Nothing is better suited to lead',
   2: 'Every speakers aim is to be heard and understood. A clear, crisp articulation holds an audience as by the spell of some irresistible power. The choice word, the',
-  3: 'awake the soul if they fall upon the ear in melodious cadence; but if the utterance be harsh and discordant they fail to interest, fall upon deaf ears, and are',
+  3: 'awake the soul if they fall upon the ear in melodious cadence but if the utterance be harsh and discordant they fail to interest, fall upon deaf ears, and are',
   4: 'the emphasizing of the relation of clause to clause, and of sentence to sentence by the systematic grouping of words. The phrase consists usually of a few words',
   5: 'which is a short sentence that forms a distinct part of a composition, paragraph, or discourse. Correct phrasing is regulated by rests, such rests as do not break',
   6: 'devoted years of his diligent life to imparting the art of correct expression in speech and writing, has provided many aids for those who would know not merely',
