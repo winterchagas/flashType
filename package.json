@@ -37,7 +37,7 @@
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "sass-loader": "^8.0.0",
-    "socket.io": "^2.3.0",
+    "socket.io": "^2.4.0",
     "style-loader": "^1.0.0",
     "uifx": "^2.0.6",
     "uuid": "^3.3.3",
